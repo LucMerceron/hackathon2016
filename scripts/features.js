@@ -1,3 +1,5 @@
+"use strict";
+
 // Luc
 
 function handleInputChange(element) {

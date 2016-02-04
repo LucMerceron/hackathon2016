@@ -1,3 +1,4 @@
+"use strict";
 
 var table = [
   "H", "Hydrogen", "1.00794", 1, 1,
