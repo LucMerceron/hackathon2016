@@ -141,6 +141,14 @@ function popLayer(offset) {
     object.position.y = ( - ( Math.floor( i / col ) % row ) * verticalMargin ) + (Math.floor(row / 2) * verticalMargin) + 200;
     object.position.z = 1000 + offset;
 
+
+    if ( !(tile.className === 'fakeElement' || tile.className === 'fakeRoot') ){
+      // setOnClickListener
+      (function (j){
+        j.element.onclick = evt => { moveCameraToObject(j); };
+      })(object)
+    }
+
     // Add new object
     scene.add(object);
     objects.push(object);
