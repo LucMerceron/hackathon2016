@@ -75,8 +75,6 @@ var table = [
 ];
 
 var camera, scene, renderer;
-var controls;
-
 var objects = [];
 var targets = { grid: [] };
 
@@ -86,7 +84,7 @@ animate();
 function init() {
 
   camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 10000 );
-  camera.position.z = 3000;
+  camera.position.z = 5000;
 
   scene = new THREE.Scene();
 
@@ -98,25 +96,11 @@ function init() {
     element.className = 'element';
     element.style.backgroundColor = 'rgba(0,127,127,' + ( Math.random() * 0.5 + 0.25 ) + ')';
 
-    var number = document.createElement( 'div' );
-    number.className = 'number';
-    number.textContent = (i/5) + 1;
-    element.appendChild( number );
-
-    var symbol = document.createElement( 'div' );
-    symbol.className = 'symbol';
-    symbol.textContent = table[ i ];
-    element.appendChild( symbol );
-
-    var details = document.createElement( 'div' );
-    details.className = 'details';
-    details.innerHTML = table[ i + 1 ] + '<br>' + table[ i + 2 ];
-    element.appendChild( details );
-
+  
     var object = new THREE.CSS3DObject( element );
-    object.position.x = Math.random() * 4000 - 2000;
-    object.position.y = Math.random() * 4000 - 2000;
-    object.position.z = Math.random() * 4000 - 2000;
+    object.position.x = Math.random() * 8000 - 2000;
+    object.position.y = Math.random() * 8000 - 2000;
+    object.position.z = Math.random() * 8000 - 2000;
 
     // Listen on onclick event
     (function (j){
@@ -144,17 +128,10 @@ function init() {
 
   }
 
-  //
-
   renderer = new THREE.CSS3DRenderer();
   renderer.setSize( window.innerWidth, window.innerHeight );
   renderer.domElement.style.position = 'absolute';
   document.getElementById( 'container' ).appendChild( renderer.domElement );
-
-  controls = new THREE.TrackballControls( camera, renderer.domElement );
-  controls.rotateSpeed = 1.5;
-  controls.zoomSpeed = 0.2;
-  controls.addEventListener( 'change', render );
 
   transform( targets.grid, 2000 );
 
@@ -207,11 +184,10 @@ function animate() {
 
   TWEEN.update();
 
-  controls.update();
+  // controls.update();
 
 }
 
 function render() {
   renderer.render( scene, camera );
-
 }
