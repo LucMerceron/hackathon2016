@@ -116,6 +116,13 @@ function init() {
     object.position.x = Math.random() * 4000 - 2000;
     object.position.y = Math.random() * 4000 - 2000;
     object.position.z = Math.random() * 4000 - 2000;
+
+    // Listen on onclick event
+    (function (j){
+      object.element.onclick = evt => { moveCameraToObject(j); }
+    })(object)
+    
+
     scene.add( object );
 
     objects.push( object );
@@ -130,7 +137,7 @@ function init() {
 
     object.position.x = ( ( i % 5 ) * 400 ) - 800;
     object.position.y = ( - ( Math.floor( i / 5 ) % 5 ) * 400 ) + 800;
-    object.position.z = ( Math.floor( i / 25 ) ) * 1000 - 2000;
+    object.position.z = ( Math.floor( i / 25 ) + 1 ) * 1000;
 
     targets.grid.push( object );
 
@@ -144,9 +151,8 @@ function init() {
   document.getElementById( 'container' ).appendChild( renderer.domElement );
 
   controls = new THREE.TrackballControls( camera, renderer.domElement );
-  controls.rotateSpeed = 0.5;
-  controls.minDistance = 500;
-  controls.maxDistance = 6000;
+  controls.rotateSpeed = 1.5;
+  controls.zoomSpeed = 0.2;
   controls.addEventListener( 'change', render );
 
   transform( targets.grid, 2000 );
@@ -205,7 +211,6 @@ function animate() {
 }
 
 function render() {
-
   renderer.render( scene, camera );
 
 }

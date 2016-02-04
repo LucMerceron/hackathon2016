@@ -1,9 +1,9 @@
-let _store = {
+var _store = {
   actors: [],
   movies: []
 }
 
-let StoreManager = {
+var StoreManager = {
   getMovies: function(){
     return _store.movies;
   },
