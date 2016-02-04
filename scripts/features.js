@@ -13,7 +13,7 @@ function handleInputChange(element) {
 
   TWEEN.removeAll();
   new TWEEN.Tween( cameraPosition )
-    .to( {x: 0, y: 0, z: 7000}, 5000 )
+    .to( {x: 0, y: 0, z: INITIAL_CAMERA_Z}, 5000 )
     .easing( TWEEN.Easing.Exponential.Out )
     .onUpdate(() =>{      
       camera.position.x = cameraPosition.x;
@@ -56,16 +56,20 @@ function handleInputChange(element) {
 }
 
 function starWars(){
+  let minimumZ = 10000;
   for (var i = 0; i < objects.length; i++) {
     let object = objects[i];
     let objectPos = object.position;
     let cameraPos = camera.position;
 
     if (objectBehindCamera(objectPos, cameraPos)) {
-      popTile(object);
+      removeTile(object);
     } else {
-      objectPos.z += 100;
+      objectPos.z += 150;
     }
+
+    if(objectPos.z < minimumZ)
+      minimumZ = objectPos.z;
 
 
     if (flaggounet && tileInFront(object, cameraPos))
@@ -74,13 +78,17 @@ function starWars(){
     render();
   }
 
+  if(minimumZ > 2000) {
+    popLayer(minimumZ - 2000);
+  }
+
   if (goodTile) {
     // If good tile then delete what is between them and the camera
     for (var i = 0; i < objects.length; i++) {
       let object = objects[i];
       let cameraPos = camera.position;
       if ((object.element.className === 'fakeElement' && (cameraPos.z - object.position.z) < 3000)) {
-        popTile(object);
+        removeTile(object);
       }
      }
     clearInterval(STWcalled);
@@ -110,32 +118,33 @@ function tileInFront(tile, cameraPos){
   return (tile.element.className !== 'fakeElement' && (cameraPos.z - tile.position.z) < 3000)
 }
 
-function popTile(object) {
-	let tile = _getNextTile();
-
-	let randomX = -2000 + Math.random() * 4000;
-	let randomY = -600 + Math.random() * 1400;
-	let randomZ = Math.random() * 50;
-
-	scene.remove(object);
-
-	const index = objects.indexOf(object);
-	if (index > -1) {
+function removeTile(object) {
+  // Delete old object 
+  const index = objects.indexOf(object);
+  if (index > -1) {
     objects.splice(index, 1);
-	}
+  }
+  scene.remove(object);
+}
 
-  var object = new THREE.CSS3DObject(tile);
-  object.position.x = randomX;
-  object.position.y = randomY;
-  object.position.z = randomZ;
+function popLayer(offset) {
+  for ( var i = 0; i < 12; i ++ ) {
+    let tile = _getNextTile();
 
-  // Listen on onclick event
-  (function (j){
-    object.element.onclick = evt => { moveCameraToObject(j); }
-  })(object)
+    var object = new THREE.CSS3DObject(tile);
+    var col = 4;
+    var row = 3;
+    var horizontalMargin = 800;
+    var verticalMargin = 400;
 
-  scene.add(object);
-  objects.push(object);
+    object.position.x = ( ( i % col ) * horizontalMargin ) - ((horizontalMargin * col) / 2 - horizontalMargin /2) + 260;
+    object.position.y = ( - ( Math.floor( i / col ) % row ) * verticalMargin ) + (Math.floor(row / 2) * verticalMargin) + 200;
+    object.position.z = 1000 + offset;
+
+    // Add new object
+    scene.add(object);
+    objects.push(object);
+  }
 }
 
 function _getNextTile() {
@@ -143,14 +152,13 @@ function _getNextTile() {
 		// Pop movie
 	} else if (StoreManager.getActors().length > 0) {
 		// Pop actor
+    console.log('pop actor');
 		let actor = StoreManager.getActors().shift();
 		let actorElt = new PersonHTMLObject(actor.name, actor.profile_path ? ENDPOINT_POSTER + actor.profile_path : null);
 		return actorElt.getHTMLElement();
 	} else {
 		// Pop fake
-		let fakeTile = document.createElement( 'div' );
-    fakeTile.className = 'fakeElement';
-    return fakeTile;
+		return newFakeTile();
 	}
 }
 

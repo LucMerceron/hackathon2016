@@ -3,6 +3,7 @@
 var camera, scene, renderer;
 var objects = [];
 var targets = { grid: [] };
+var INITIAL_CAMERA_Z = 11000;
 
 preloading();
 
@@ -22,21 +23,26 @@ function init() {
 
   camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 10000 );
 
-  camera.position.z = 7000;
+  camera.position.z = INITIAL_CAMERA_Z;
 
   scene = new THREE.Scene();
+
+  // Fake background object
+  for ( var i = 0; i < 60; i++ ) {
+    var fakeRoot = newFakeTile();
+
+    var object = new THREE.CSS3DObject(fakeRoot);
+    object.position.x = Math.random() * 8000 - 2000;
+    object.position.y = Math.random() * 8000 - 2000;
+    object.position.z = Math.random() * 8000 - 2000;
+
+    scene.add( object );
+    objects.push( object );
+  }
 
   for ( var i = 0; i < launchItems.length; i += 2 ) {
     var element = new PersonHTMLObject('Bernard', ENDPOINT_POSTER + "/r7WLn4Kbnqb6oJ8TmSI0e4LkWTj.jpg");
     element.setId( 3223 );
-    //var element = document.createElement( 'div' );
-    //element.className = 'fakeElement';
-    // element.style.backgroundColor = 'rgba(0,127,127,' + ( Math.random() * 0.5 + 0.25 ) + ')';
-
-    // var poster = document.createElement('img');
-    // poster.src = launchItems[i + 1];
-    // poster.width = "120";
-    // element.appendChild(poster);
 
     var object = new THREE.CSS3DObject( element.getHTMLElement() );
     object.position.x = Math.random() * 8000 - 2000;
@@ -90,25 +96,22 @@ function init() {
     scene.add( object );
 
     objects.push( object );
-
   }
 
-  // grid
-
+  // Targets
   for ( var i = 0; i < objects.length; i ++ ) {
-
     var object = new THREE.Object3D();
 
-    var col = 6;
+    var col = 4;
     var row = 3;
     var horizontalMargin = 800;
     var verticalMargin = 400;
 
-    object.position.x = ( ( i % col ) * horizontalMargin ) - ((horizontalMargin * col) / 2 - horizontalMargin /2);
-    object.position.y = ( - ( Math.floor( i / col ) % row ) * verticalMargin ) + (Math.floor(row / 2) * verticalMargin);
+    object.position.x = ( ( i % col ) * horizontalMargin ) - ((horizontalMargin * col) / 2 - horizontalMargin /2) + 260;
+    object.position.y = ( - ( Math.floor( i / col ) % row ) * verticalMargin ) + (Math.floor(row / 2) * verticalMargin) + 200;
     object.position.z = ( Math.floor( i / (row * col) ) + 1 ) * 1000;
+    console.log(object.position.z);
     targets.grid.push( object );
-
   }
 
   renderer = new THREE.CSS3DRenderer();

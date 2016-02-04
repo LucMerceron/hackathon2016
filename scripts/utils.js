@@ -12,3 +12,12 @@ function preloadImages(images) {
 	}
 	return Promise.all(promises);
 }
+
+function newFakeTile() {
+  var fakeRoot = document.createElement( 'div' );
+  fakeRoot.className = 'fakeRoot';
+  var element = document.createElement( 'div' );
+  element.className = 'fakeElement';
+  fakeRoot.appendChild(element);
+  return fakeRoot;
+}
