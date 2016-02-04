@@ -24,7 +24,7 @@ function starWars(){
     let cameraPos = camera.position;
 
     if (objectBehindCamera(objectPos, cameraPos)) {
-      objectPos.z = 0;
+      popTile(objects[i]);
     } else {
       objectPos.z += 50;
     }
