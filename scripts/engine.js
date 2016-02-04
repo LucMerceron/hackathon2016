@@ -1,8 +1,3 @@
-// Luc
-
-function handleInputChange(element) {
-  console.log(element.value);
-}
 
 var table = [
   "H", "Hydrogen", "1.00794", 1, 1,
