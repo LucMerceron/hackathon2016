@@ -7,22 +7,36 @@
 // Button of tooltip handling
 
 
-function createPersonHTMLObject( name, birthday, placebirth, biography, knwownFor, urlPicture, popularity ){
+
+var PersonHTMLObject = function ( name, urlPicture ){
 
   var moviePersonCard = document.createElement( 'div' );
   moviePersonCard.className = 'movie_person_card';
 
   var moviePersonCardPicture = document.createElement( 'div' );
   moviePersonCardPicture.className = 'movie_person_card_picture';
-  moviePersonCardPicture.style.backgroundImage = 'urlPicture';
+  moviePersonCardPicture.style.backgroundImage = urlPicture;
+  moviePersonCard.appendChild( moviePersonCardPicture );
 
   var moviePersonCardBody = document.createElement( 'div' );
   moviePersonCardBody.className = 'movie_person_card_body';
   moviePersonCard.appendChild( moviePersonCardBody );
 
+  var moviePersonContainer = document.createElement( 'div' );
+  moviePersonContainer.className = 'container';
+  moviePersonCardBody.appendChild( moviePersonContainer );
+
+  var moviePersonPreLoader = document.createElement( 'div' );
+  moviePersonPreLoader.className = 'preloader';
+  moviePersonContainer.appendChild( moviePersonPreLoader );
+
+  var moviePersonNotShow = document.createElement( 'div' );
+  moviePersonNotShow.className = 'notShow';
+  moviePersonCardBody.appendChild( moviePersonNotShow );
+
   var moviePersonPannel = document.createElement( 'div' );
   moviePersonPannel.className = 'movie_person_pannel';
-  moviePersonCardBody.appendChild( moviePersonPannel );
+  moviePersonNotShow.appendChild( moviePersonPannel );
 
   var moviePersonName = document.createElement( 'div' );
   moviePersonName.className = 'movie_person_name';
@@ -40,33 +54,53 @@ function createPersonHTMLObject( name, birthday, placebirth, biography, knwownFo
 
   var moviePersonRatingNumber = document.createElement( 'div' );
   moviePersonRatingNumber.className = 'movie_person_rating_number';
-  moviePersonRatingNumber.innerHTML = popularity;
   moviePersonRatingPannel.appendChild( moviePersonRatingNumber );
 
   var moviePersonBirthday = document.createElement( 'div' );
   moviePersonBirthday.className = 'movie_person_birthday';
-  moviePersonBirthday.innerHTML = birthday + '-' + placebirth;
-  moviePersonCardBody.appendChild( moviePersonBirthday );
+  moviePersonNotShow.appendChild( moviePersonBirthday );
 
   var moviePersonBiography = document.createElement( 'div' );
   moviePersonBiography.className = 'movie_person_biography';
-  moviePersonBiography.innerHTML = biography;
-  moviePersonCardBody.appendChild( moviePersonBiography );
+  moviePersonNotShow.appendChild( moviePersonBiography );
 
   var moviePersonKnown = document.createElement( 'div' );
   moviePersonKnown.className = 'movie_person_known';
-  moviePersonKnown.innerHTML = knwownFor;
-  moviePersonCardBody.appendChild( moviePersonKnown );
+  moviePersonNotShow.appendChild( moviePersonKnown );
 
   var moviePersonFilmography = document.createElement( 'div' );
   moviePersonFilmography.className = 'movie_person_filmography';
-  moviePersonCardBody.appendChild( moviePersonFilmography );
+  moviePersonNotShow.appendChild( moviePersonFilmography );
 
   var moviePersonFilmographyBtn = document.createElement( 'div' );
   moviePersonFilmographyBtn.className = 'movie_person_filmography_btn';
   moviePersonFilmographyBtn.innerHTML = '>FILMOGRAPHY<';
   moviePersonFilmography.appendChild( moviePersonFilmographyBtn );
 
-  return moviePersonCard;
+  this.getHTMLElement = function(){
+    return moviePersonCard;
+  };
+
+  this.setPopularity = function( popularity ){
+    moviePersonRatingNumber.innerHTML = popularity;
+  };
+
+  this.setBirthday = function( birthdayDate, placeBirhtday ){
+    moviePersonBirthday.innerHTML = birthday + '-' + placebirth;
+  };
+
+  this.setBiograĥy = function( biography ){
+    moviePersonBiography.innerHTML = biography;
+  }
+
+  this.setKnownFor = function( knownFor ){
+    moviePersonKnown.innerHTML = knwownFor;
+  };
+
+  this.closeLoader = function(){
+    moviePersonContainer.style.display = "none";
+    moviePersonNotShow.className = '';
+    moviePersonNotShow.style.display = "block";
+  };
 
 }
