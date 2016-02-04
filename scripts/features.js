@@ -6,7 +6,7 @@ function handleInputChange(element) {
   var pWait = new Promise(function(resolve, reject) { 
     setTimeout(resolve, 4000);
   });
-  STWcalled = setInterval(function(){ starWars(); }, 10);
+  STWcalled = setInterval(function(){ starWars(); }, 20);
 
   Promise.all([
     searchPersonAndMovie(element.value)
@@ -31,7 +31,7 @@ function handleInputChange(element) {
     ]).then((results) => {
       StoreManager.setMovies(results[0][0]);
       StoreManager.setActors(results[0][1]);
-      setTimeout(()=>clearInterval(STWcalled), 1800);
+      setTimeout(()=>{clearInterval(STWcalled); smoothStop()}, 1800);
     })
 }
 
@@ -43,10 +43,29 @@ function starWars(){
     if (objectBehindCamera(objectPos, cameraPos)) {
       popTile(objects[i]);
     } else {
-      objectPos.z += 50;
+      objectPos.z += 100;
     }
     render();
   }
+}
+
+function smoothStop(){
+  
+  var cameraPosition = camera.position.clone();
+  var targetPosition = {x: cameraPosition.x, y: cameraPosition.y, z: cameraPosition.z - 1000};
+
+  TWEEN.removeAll();
+  new TWEEN.Tween( cameraPosition )
+    .to( targetPosition, 2000 )
+    .easing( TWEEN.Easing.Exponential.InOut )
+    .onUpdate( () => {
+        camera.position.x = cameraPosition.x;
+        camera.position.y = cameraPosition.y;
+        camera.position.z = cameraPosition.z;
+        render();
+      }
+    )
+    .start();
 }
 
 function popTile(object) {
@@ -109,7 +128,7 @@ function moveCameraToObject(object) {
   var cameraOrientation = camera.position.clone();
   var targetOrientation = object.position.clone();
 
-  targetOrientation.set(targetOrientation.x + 200, targetOrientation.y, targetOrientation.z + 1000);
+  targetOrientation.set(targetOrientation.x + 120, targetOrientation.y - 170, targetOrientation.z + 1000);
 
   TWEEN.removeAll();
   new TWEEN.Tween( cameraOrientation )
