@@ -15,7 +15,24 @@ function handleInputChange(element) {
   STWcalled = setInterval(function(){ starWars(); }, 20);
 
   Promise.all([
-    searchPersonAndMovie(element.value),
+    searchPersonAndMovie(element.value)
+        .then(array => {
+            let urls = [];
+            let movies = array[0];
+            for(let i = 0; i < movies.length; i++) {
+                if(movies[i].poster_path) {
+                    urls.push(ENDPOINT_POSTER + movies[i].poster_path);
+                }
+            }
+            let actors = array[1];
+            for(let i = 0; i < actors.length; i++) {
+                if(actors[i].profile_path) {
+                    urls.push(ENDPOINT_POSTER + actors[i].profile_path);
+                }
+            }
+            return preloadImages(urls)
+                .then(() => {return Promise.resolve(array)});
+        }),
     pWait
     ]).then((results) => {
       StoreManager.setMovies(results[0][0]);
