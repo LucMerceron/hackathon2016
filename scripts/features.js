@@ -153,6 +153,8 @@ function _getNextTile() {
     console.log('pop movie');
     let movie = StoreManager.getMovies().shift();
     let movieElt = new MovieHTMLObject(movie.original_title, movie.poster_path ? ENDPOINT_POSTER + movie.poster_path : null);
+    movieElt.setId( movie.id );
+    setListener( movieElt, evt=> { console.log( 'test') ; } );
     return movieElt.getHTMLElement();
 	} else if (StoreManager.getActors().length > 0) {
 		// Pop actor
@@ -160,7 +162,6 @@ function _getNextTile() {
 		let actor = StoreManager.getActors().shift();
 		let actorElt = new PersonHTMLObject(actor.name, actor.profile_path ? ENDPOINT_POSTER + actor.profile_path : null);
     actorElt.setId( actor.id );
-    console.log( actor.id );
     setListener( actorElt, evt=> { console.log( 'test') ; } );
     return actorElt.getHTMLElement();
 	} else {
@@ -172,7 +173,6 @@ function _getNextTile() {
 function setListener( element, evtOnClick ){
   (function (el){
     var object = el.getHTMLElement();
-    object.onclick = evt => { moveCameraToObject(j); };
     object.onmouseover = evt => {
 
       if ( el.getId() > -1 ){
@@ -180,7 +180,7 @@ function setListener( element, evtOnClick ){
         if ( el.isMovie() == true ){
           getMovieDetails( el.getId() ).then(
             details => {
-              el.setPopularity( details.popularity );
+              el.setPopularity( Math.round(details.popularity) );
               el.setDate( details.release_date );
 
               var genre = new Array();
