@@ -28,6 +28,13 @@ var launchItems = [
    35, "https://image.tmdb.org/t/p/w500/eCytnEriVur3rT47NWfkgPXD9qs.jpg",
    55, "https://image.tmdb.org/t/p/w500/8gEXmIzw1tDnBfOaCFPimkNIkmm.jpg",
    58, "https://image.tmdb.org/t/p/w500/waFr5RVKaQ9dzOt3nQuIVB1FiPu.jpg",
+   30, "https://image.tmdb.org/t/p/w500/1A59xquD5rZeQRgjMfI4qu1ZvcQ.jpg",
+   31, "https://image.tmdb.org/t/p/w500/5LRT8RxXsEg7Ni0YCa2p6R9Ogn.jpg",
+   32, "https://image.tmdb.org/t/p/w500/oJdlkTtDvvpgagO2JWBBxGq5mMN.jpg",
+   33, "https://image.tmdb.org/t/p/w500/km6qw4qUkHQRN5y2U1juM1WkBFh.jpg",
+   35, "https://image.tmdb.org/t/p/w500/eCytnEriVur3rT47NWfkgPXD9qs.jpg",
+   55, "https://image.tmdb.org/t/p/w500/8gEXmIzw1tDnBfOaCFPimkNIkmm.jpg",
+   58, "https://image.tmdb.org/t/p/w500/waFr5RVKaQ9dzOt3nQuIVB1FiPu.jpg",
    59, "https://image.tmdb.org/t/p/w500/mz1qCHXxTUJm2AqOdW3IIpwYdo3.jpg",
 ];
 

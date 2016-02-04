@@ -6,7 +6,7 @@ function handleInputChange(element) {
   var pWait = new Promise(function(resolve, reject) { 
     setTimeout(resolve, 4000);
   });
-  STWcalled = setInterval(function(){ starWars(); }, 20);
+  STWcalled = setInterval(function(){ starWars(); }, 10);
 
   Promise.all([
     searchPersonAndMovie(element.value)
@@ -31,7 +31,7 @@ function handleInputChange(element) {
     ]).then((results) => {
       StoreManager.setMovies(results[0][0]);
       StoreManager.setActors(results[0][1]);
-      // clearInterval(STWcalled)
+      setTimeout(()=>clearInterval(STWcalled), 1800);
     })
 }
 
