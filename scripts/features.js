@@ -6,7 +6,6 @@ var goodTile = false;
 var flaggounet = false;
 
 function handleInputChange(element) {
-
   goodTile = false;
   flaggounet = false;
 
@@ -16,24 +15,7 @@ function handleInputChange(element) {
   STWcalled = setInterval(function(){ starWars(); }, 20);
 
   Promise.all([
-    searchPersonAndMovie(element.value)
-    	.then(array => {
-    		let urls = [];
-    		let movies = array[0];
-    		for(let i = 0; i < movies.length; i++) {
-    			if(movies[i].poster_path) {
-    				urls.push(ENDPOINT_POSTER + movies[i].poster_path);
-    			}
-    		}
-    		let actors = array[1];
-    		for(let i = 0; i < actors.length; i++) {
-    			if(actors[i].profile_path) {
-    				urls.push(ENDPOINT_POSTER + actors[i].profile_path);
-    			}
-    		}
-    		return preloadImages(urls)
-    			.then(() => {return Promise.resolve(array)});
-    	}),
+    searchPersonAndMovie(element.value),
     pWait
     ]).then((results) => {
       StoreManager.setMovies(results[0][0]);
@@ -112,7 +94,7 @@ function popTile(object) {
   (function (j){
     object.element.onclick = evt => { moveCameraToObject(j); }
   })(object)
-  
+
   scene.add(object);
   objects.push(object);
 }
@@ -124,7 +106,7 @@ function _getNextTile() {
 		// Pop actor
 		let actor = StoreManager.getActors().shift();
 		let actorElt = new PersonHTMLObject(actor.name, actor.profile_path ? ENDPOINT_POSTER + actor.profile_path : null);
-		return actorElt.getHTMLElement(); 
+		return actorElt.getHTMLElement();
 	} else {
 		// Pop fake
 		let fakeTile = document.createElement( 'div' );
@@ -168,7 +150,7 @@ function moveCameraToObject(object) {
 
 
 document.addEventListener( 'wheel', mousewheel, false );
-document.addEventListener( 'mousedown', mousedown, false ); 
+document.addEventListener( 'mousedown', mousedown, false );
 document.addEventListener( 'mousemove', mousemove, false );
 document.addEventListener( 'mouseup', mouseup, false );
 
@@ -200,7 +182,7 @@ function mousemove ( event ) {
   }
 }
 
-function mouseup ( event ) { 
+function mouseup ( event ) {
   flatInit = "unpressed";
     document.body.style.cursor = 'default';
 }

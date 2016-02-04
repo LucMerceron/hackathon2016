@@ -5,13 +5,17 @@
 
 var PersonHTMLObject = function ( name, urlPicture ){
 
+  var id = -1;
+
+  var isMovie = false;
+
   var moviePersonCard = document.createElement( 'div' );
   moviePersonCard.className = 'movie_person_card';
 
   var moviePersonCardPicture = document.createElement( 'div' );
   moviePersonCardPicture.className = 'movie_person_card_picture';
   if(urlPicture){
-  	moviePersonCardPicture.style.backgroundImage = 'url(\'' + urlPicture + '\')';	
+  	moviePersonCardPicture.style.backgroundImage = 'url(\'' + urlPicture + '\')';
   }
   moviePersonCard.appendChild( moviePersonCardPicture );
 
@@ -78,6 +82,18 @@ var PersonHTMLObject = function ( name, urlPicture ){
   moviePersonFilmographyBtn.innerHTML = '>FILMOGRAPHY<';
   moviePersonFilmography.appendChild( moviePersonFilmographyBtn );
 
+  this.getId = function(){
+    return id;
+  };
+
+  this.setId = function( idPerson ){
+    id = idPerson;
+  };
+
+  this.isMovie = function(){
+    return isMovie;
+  };
+
   this.getHTMLElement = function(){
     return moviePersonCard;
   };
@@ -95,7 +111,16 @@ var PersonHTMLObject = function ( name, urlPicture ){
   }
 
   this.setKnownFor = function( knownFor ){
-    moviePersonKnown.innerHTML = knownFor;
+    var res = '';
+
+    for(var i= 0; i < knownFor.length; i++){
+      if ( res == '' ){
+        res = knownFor[i];
+      }else {
+        res = res + ' - ' + knownFor[i];
+      }
+    }
+    moviePersonKnown.innerHTML = res;
   };
 
   this.closeLoader = function(){
@@ -104,9 +129,17 @@ var PersonHTMLObject = function ( name, urlPicture ){
     moviePersonNotShow.style.display = "block";
   };
 
+  this.setOnClickListener = function( evt ){
+    moviePersonFilmographyBtn.onclick = evt;
+  };
+
 }
 
 var MovieHTMLObject = function ( name, urlPicture ){
+
+  var id = -1;
+
+  var isMovie = true;
 
   var movieShowCard = document.createElement( 'div' );
   movieShowCard.className = 'movie_show_card';
@@ -179,6 +212,18 @@ var MovieHTMLObject = function ( name, urlPicture ){
   movieShowActeursBtn.innerHTML = '>ACTEURS<';
   movieShowActeurs.appendChild( movieShowActeursBtn );
 
+  this.isMovie = function(){
+    return isMovie;
+  };
+
+  this.getId = function(){
+    return id;
+  };
+
+  this.setId = function( idMovie ){
+    id = idMovie;
+  };
+
   this.getHTMLElement = function(){
     return movieShowCard;
   };
@@ -212,6 +257,10 @@ var MovieHTMLObject = function ( name, urlPicture ){
     movieShowContainer.style.display = "none";
     movieShowNotShow.className = '';
     movieShowNotShow.style.display = "block";
+  };
+
+  this.setOnClickListener = function( evt ){
+    movieShowActeursBtn.onclick = evt;
   };
 
 }
