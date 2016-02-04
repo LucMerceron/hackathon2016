@@ -20,9 +20,13 @@ var PersonHTMLObject = function ( name, urlPicture ){
   }
   moviePersonCard.appendChild( moviePersonCardPicture );
 
+  var moviePersonCardContainer = document.createElement( 'div' );
+  moviePersonCardContainer.className = 'movie_person_card_body_container';
+  moviePersonCard.appendChild( moviePersonCardContainer );
+
   var moviePersonCardBody = document.createElement( 'div' );
   moviePersonCardBody.className = 'movie_person_card_body';
-  moviePersonCard.appendChild( moviePersonCardBody );
+  moviePersonCardContainer.appendChild( moviePersonCardBody );
 
   var moviePersonContainer = document.createElement( 'div' );
   moviePersonContainer.className = 'container';

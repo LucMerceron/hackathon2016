@@ -128,7 +128,7 @@ body{
   font-size: 16px;
   line-height: 1.4;
   background-color: rgba(0,0,0,0);
-  height: 350px;
+  height: 0px;
   width: 730px;
 }
 
@@ -146,13 +146,18 @@ body{
   background-repeat: no-repeat;
 }
 
-.movie_person_card_body{
-  margin-left: 10px;
+.movie_person_card_body_container{
   position: relative;
   text-transform: uppercase;
   display: none;
-  width: 490px;
+  width: 500px;
   height: 350px;
+}
+
+.movie_person_card_body{
+  margin-left: 10px;
+  height: 350px;
+  width: 490px;
   overflow: hidden;
   background-color: rgba(127,255,255,0.28);
   padding: 15px;
@@ -161,7 +166,7 @@ body{
   color: #fff;
 }
 
-.movie_person_card:hover .movie_person_card_body{
+.movie_person_card:hover .movie_person_card_body_container{
   display: inline-block;
   vertical-align: top;
 }
