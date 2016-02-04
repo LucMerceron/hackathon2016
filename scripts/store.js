@@ -15,12 +15,10 @@ var StoreManager = {
   },
 
   setMovies: function(movies){
-    console.log('movies', movies);
     _store.movies = movies;
   },
 
   setActors: function(actors){
-    console.log('actors', actors);
     _store.actors = actors;
   },
 

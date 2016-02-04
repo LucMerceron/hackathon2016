@@ -192,7 +192,11 @@ function popLayer(offset) {
 }
 
 function _getNextTile() {
-	if (Math.random() > 0.5 && StoreManager.getMovies().length > 0) {
+  let rand = Math.random();
+  let nbMovies = StoreManager.getMovies().length;
+  let nbActors = StoreManager.getActors().length;
+	if ((nbMovies > 0 && nbActors > 0 && rand > 0.5)
+      || (nbMovies > 0 && nbActors == 0)) {
 		// Pop movie
     console.log('pop movie');
     let movie = StoreManager.getMovies().shift();
