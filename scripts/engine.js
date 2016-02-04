@@ -23,20 +23,20 @@ function preloading() {
 function init() {
 
   camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 10000 );
-  camera.position.z = 5300;
+  camera.position.z = 7300;
 
   scene = new THREE.Scene();
 
   for ( var i = 0; i < launchItems.length; i += 2 ) {
 
     var element = document.createElement( 'div' );
-    element.className = 'element';
-    element.style.backgroundColor = 'rgba(0,127,127,' + ( Math.random() * 0.5 + 0.25 ) + ')';
+    element.className = 'fakeElement';
+    // element.style.backgroundColor = 'rgba(0,127,127,' + ( Math.random() * 0.5 + 0.25 ) + ')';
 
-    var poster = document.createElement('img');
-    poster.src = launchItems[i + 1];
-    poster.width = "120";
-    element.appendChild(poster);
+    // var poster = document.createElement('img');
+    // poster.src = launchItems[i + 1];
+    // poster.width = "120";
+    // element.appendChild(poster);
 
     var object = new THREE.CSS3DObject( element );
     object.position.x = Math.random() * 4000 - 2000;
@@ -60,9 +60,14 @@ function init() {
 
     var object = new THREE.Object3D();
 
-    object.position.x = ( ( i % 10 ) * 400 ) - 1600;
-    object.position.y = ( - ( Math.floor( i / 10 ) % 5 ) * 400 ) + 800;
-    object.position.z = ( Math.floor( i / 50 ) + 1 ) * 1000;
+    var col = 10;
+    var row = 5;
+    var horizontalMargin = 400;
+    var verticalMargin = 400;
+
+    object.position.x = ( ( i % col ) * horizontalMargin ) - ((horizontalMargin * col) / 2 - horizontalMargin /2);
+    object.position.y = ( - ( Math.floor( i / col ) % row ) * verticalMargin ) + (Math.floor(row / 2) * verticalMargin);
+    object.position.z = ( Math.floor( i / (row * col) ) + 1 ) * 1000;
 
     targets.grid.push( object );
 
