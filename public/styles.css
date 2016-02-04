@@ -125,6 +125,7 @@ input:active {
   border: 1px solid rgba(127,255,255,0.75);
   background-size:contain;
   background-position:center;
+  background-repeat: no-repeat;
 }
 
 .movie_person_card_body{
