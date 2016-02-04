@@ -27,8 +27,8 @@ function init() {
   scene = new THREE.Scene();
 
   for ( var i = 0; i < launchItems.length; i += 2 ) {
-    var element = new PersonHTMLObject('Bernard', ENDPOINT_POSTER + "/r7WLn4Kbnqb6oJ8TmSI0e4LkWTj.jpg").getHTMLElement(); 
-
+    var element = new PersonHTMLObject('Bernard', ENDPOINT_POSTER + "/r7WLn4Kbnqb6oJ8TmSI0e4LkWTj.jpg");
+    element.setId( 3223 );
     //var element = document.createElement( 'div' );
     //element.className = 'fakeElement';
     // element.style.backgroundColor = 'rgba(0,127,127,' + ( Math.random() * 0.5 + 0.25 ) + ')';
@@ -38,16 +38,49 @@ function init() {
     // poster.width = "120";
     // element.appendChild(poster);
 
-    var object = new THREE.CSS3DObject( element );
+    var object = new THREE.CSS3DObject( element.getHTMLElement() );
     object.position.x = Math.random() * 8000 - 2000;
     object.position.y = Math.random() * 8000 - 2000;
     object.position.z = Math.random() * 8000 - 2000;
 
-    // Listen on onclick event
-    (function (j){
-      object.element.onclick = evt => { moveCameraToObject(j); }
-    })(object)
+    // Listen on onclick event + hover (onmouseover)
+    (function (j,el){
+      object.element.onclick = evt => { moveCameraToObject(j); };
+      object.element.onmouseover = evt => {
 
+        if ( el.getId() > -1 ){
+
+          if ( el.isMovie() == true ){
+            getMovieDetails( el.getId() ).then(
+              details => {
+                el.setPopularity( details.popularity );
+                el.setDate( details.release_date );
+
+                var genre = new Array();
+                for ( var i = 0; i < details.genres.length; i++ ){
+                  genre.push( details.genres[i].name );
+                }
+                el.setGenre( genre );
+                el.setOverview( details.overview );
+                el.closeLoader();
+              }
+            );
+          }else {
+            getPersonDetails( el.getId() ).then(
+              details => {
+                el.setPopularity( Math.round(details.popularity) );
+                el.setBirthday( details.birthday );
+                el.setBiography( details.biography );
+                el.setKnownFor( details.also_known_as );
+                el.closeLoader();
+              }
+            );
+          }
+        }
+        j.element.onmouseover = null;
+      }
+
+    })(object,element)
     scene.add( object );
 
     objects.push( object );
