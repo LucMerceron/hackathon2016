@@ -9,11 +9,18 @@ function handleInputChange(element) {
   goodTile = false;
   flaggounet = false;
 
+  var cameraPosition = camera.position.clone();
+
   TWEEN.removeAll();
-  new TWEEN.Tween( camera.position )
-    .to( {x: 0, y: 0, z: 7000}, 7000 )
+  new TWEEN.Tween( cameraPosition )
+    .to( {x: 0, y: 0, z: 7000}, 5000 )
     .easing( TWEEN.Easing.Exponential.Out )
-    .onUpdate(render)
+    .onUpdate(() =>{      
+      camera.position.x = cameraPosition.x;
+      camera.position.y = cameraPosition.y;
+      camera.position.z = cameraPosition.z;
+      render();
+    })
     .start();
 
   var pWait = new Promise(function(resolve, reject) { 
@@ -55,7 +62,7 @@ function starWars(){
     let cameraPos = camera.position;
 
     if (objectBehindCamera(objectPos, cameraPos)) {
-      popTile(objects[i]);
+      popTile(object);
     } else {
       objectPos.z += 100;
     }
@@ -68,6 +75,14 @@ function starWars(){
   }
 
   if (goodTile) {
+    // If good tile then delete what is between them and the camera
+    for (var i = 0; i < objects.length; i++) {
+      let object = objects[i];
+      let cameraPos = camera.position;
+      if ((object.element.className === 'fakeElement' && (cameraPos.z - object.position.z) < 3000)) {
+        popTile(object);
+      }
+     }
     clearInterval(STWcalled);
     smoothStop();
   }
@@ -215,7 +230,7 @@ function mousewheel( e ) {
   var cameraPosition = camera.position.clone();
   var cameraTarget = camera.position.clone();
 
-  if(e.deltaY > 0) {
+  if(e.deltaY > 0 && cameraPosition.z <= 7000) {
     cameraTarget.z += 500;
     new TWEEN.Tween( cameraPosition )
     .to( cameraTarget, 200 )
@@ -226,7 +241,7 @@ function mousewheel( e ) {
       }
     )
     .start();
-  }else {
+  } else if (e.deltaY < 0) {
    cameraTarget.z -= 500;
     new TWEEN.Tween( cameraPosition )
     .to( cameraTarget, 200 )
