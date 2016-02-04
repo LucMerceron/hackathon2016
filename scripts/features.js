@@ -148,8 +148,12 @@ function popLayer(offset) {
 }
 
 function _getNextTile() {
-	if (Math.random() > 0.5 && StoreManager.getMovies().length > 0 && false) { // TODO remove false!!
+	if (Math.random() > 0.5 && StoreManager.getMovies().length > 0) {
 		// Pop movie
+    console.log('pop movie');
+    let movie = StoreManager.getMovies().shift();
+    let movieElt = new MovieHTMLObject(movie.original_title, movie.poster_path ? ENDPOINT_POSTER + movie.poster_path : null);
+    return movieElt.getHTMLElement();
 	} else if (StoreManager.getActors().length > 0) {
 		// Pop actor
     console.log('pop actor');
