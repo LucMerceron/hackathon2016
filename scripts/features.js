@@ -115,7 +115,7 @@ function smoothStop(){
 }
 
 function tileInFront(tile, cameraPos){
-  return (tile.element.className !== 'fakeElement' && (cameraPos.z - tile.position.z) < 3000)
+  return (!(tile.element.className === 'fakeElement' || tile.element.className === 'fakeRoot') && (cameraPos.z - tile.position.z) < 3000)
 }
 
 function removeTile(object) {
