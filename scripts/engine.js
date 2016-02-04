@@ -1,8 +1,6 @@
 "use strict";
 
 var camera, scene, renderer;
-var controls;
-
 var objects = [];
 var targets = { grid: [] };
 
@@ -23,7 +21,8 @@ function preloading() {
 function init() {
 
   camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 10000 );
-  camera.position.z = 7300;
+
+  camera.position.z = 3000;
 
   scene = new THREE.Scene();
 
@@ -35,15 +34,15 @@ function init() {
     //element.className = 'fakeElement';
     // element.style.backgroundColor = 'rgba(0,127,127,' + ( Math.random() * 0.5 + 0.25 ) + ')';
 
-    // var poster = document.createElement('img');
-    // poster.src = launchItems[i + 1];
-    // poster.width = "120";
-    // element.appendChild(poster);
+    var poster = document.createElement('img');
+    poster.src = launchItems[i + 1];
+    poster.width = "120";
+    element.appendChild(poster);
 
     var object = new THREE.CSS3DObject( element );
-    object.position.x = Math.random() * 4000 - 2000;
-    object.position.y = Math.random() * 4000 - 2000;
-    object.position.z = Math.random() * 4000 - 2000;
+    object.position.x = Math.random() * 8000 - 2000;
+    object.position.y = Math.random() * 8000 - 2000;
+    object.position.z = Math.random() * 8000 - 2000;
 
     // Listen on onclick event
     (function (j){
@@ -69,23 +68,16 @@ function init() {
 
     object.position.x = ( ( i % col ) * horizontalMargin ) - ((horizontalMargin * col) / 2 - horizontalMargin /2);
     object.position.y = ( - ( Math.floor( i / col ) % row ) * verticalMargin ) + (Math.floor(row / 2) * verticalMargin);
-    object.position.z = ( Math.floor( i / (row * col) ) + 1 ) * 1000;
+    object.position.z = ( Math.floor( i / (row * col) ) ) * 1000;
 
     targets.grid.push( object );
 
   }
 
-  //
-
   renderer = new THREE.CSS3DRenderer();
   renderer.setSize( window.innerWidth, window.innerHeight );
   renderer.domElement.style.position = 'absolute';
   document.getElementById( 'container' ).appendChild( renderer.domElement );
-
-  controls = new THREE.TrackballControls( camera, renderer.domElement );
-  controls.rotateSpeed = 1.5;
-  controls.zoomSpeed = 0.2;
-  controls.addEventListener( 'change', render );
 
   transform( targets.grid, 2000 );
 
@@ -138,11 +130,10 @@ function animate() {
 
   TWEEN.update();
 
-  controls.update();
+  // controls.update();
 
 }
 
 function render() {
   renderer.render( scene, camera );
-
 }
