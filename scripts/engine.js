@@ -69,7 +69,7 @@ function init() {
             getPersonDetails( el.getId() ).then(
               details => {
                 el.setPopularity( Math.round(details.popularity) );
-                el.setBirthday( details.birthday );
+                el.setBirthday( details.birthday, details.place_of_birth );
                 el.setBiography( details.biography );
                 el.setKnownFor( details.also_known_as );
                 el.closeLoader();
