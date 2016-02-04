@@ -242,7 +242,7 @@ function mousewheel( e ) {
   var cameraPosition = camera.position.clone();
   var cameraTarget = camera.position.clone();
 
-  if(e.deltaY > 0 && cameraPosition.z <= 7000) {
+  if(e.deltaY > 0 && cameraPosition.z <= INITIAL_CAMERA_Z) {
     cameraTarget.z += 500;
     new TWEEN.Tween( cameraPosition )
     .to( cameraTarget, 200 )
