@@ -52,13 +52,14 @@ function starWars(){
 function smoothStop(){
   
   var cameraPosition = camera.position.clone();
-  var targetPosition = {x: cameraPosition.x, y: cameraPosition.y, z: cameraPosition.z - 1000};
+  var targetPosition = {x: cameraPosition.x, y: cameraPosition.y, z: cameraPosition.z - 1500};
 
   TWEEN.removeAll();
   new TWEEN.Tween( cameraPosition )
-    .to( targetPosition, 2000 )
-    .easing( TWEEN.Easing.Exponential.InOut )
+    .to( targetPosition, 4000 )
+    .easing( TWEEN.Easing.Exponential.Out )
     .onUpdate( () => {
+      console.log(cameraPosition);
         camera.position.x = cameraPosition.x;
         camera.position.y = cameraPosition.y;
         camera.position.z = cameraPosition.z;
