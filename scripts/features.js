@@ -42,7 +42,7 @@ function moveCameraToObject(object) {
   var cameraOrientation = camera.position.clone();
   var targetOrientation = object.position.clone();
 
-  targetOrientation.set(targetOrientation.x + 200, targetOrientation.y - 100, targetOrientation.z + 700);
+  targetOrientation.set(targetOrientation.x + 200, targetOrientation.y, targetOrientation.z + 1000);
 
   TWEEN.removeAll();
   new TWEEN.Tween( cameraOrientation )

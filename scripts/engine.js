@@ -34,10 +34,10 @@ function init() {
     //element.className = 'fakeElement';
     // element.style.backgroundColor = 'rgba(0,127,127,' + ( Math.random() * 0.5 + 0.25 ) + ')';
 
-    var poster = document.createElement('img');
-    poster.src = launchItems[i + 1];
-    poster.width = "120";
-    element.appendChild(poster);
+    // var poster = document.createElement('img');
+    // poster.src = launchItems[i + 1];
+    // poster.width = "120";
+    // element.appendChild(poster);
 
     var object = new THREE.CSS3DObject( element );
     object.position.x = Math.random() * 8000 - 2000;
@@ -61,8 +61,8 @@ function init() {
 
     var object = new THREE.Object3D();
 
-    var col = 10;
-    var row = 5;
+    var col = 3;
+    var row = 3;
     var horizontalMargin = 800;
     var verticalMargin = 400;
 

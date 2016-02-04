@@ -6,7 +6,7 @@ var ENDPOINT_DETAILS_MOVIE = " http://api.themoviedb.org/3/movie/%s?api_key=b5ba
 var ENDPOINT_DETAILS_PERSON = " http://api.themoviedb.org/3/person/%s?api_key=b5ba231e834cb7e22e4a9342cb76f970"
 var ENDPOINT_MOVIE_CAST = " http://api.themoviedb.org/3/movie/%s/credits?api_key=b5ba231e834cb7e22e4a9342cb76f970"
 var ENDPOINT_PERSON_MOVIES = " http://api.themoviedb.org/3/person/%s/movie_credits?api_key=b5ba231e834cb7e22e4a9342cb76f970"
-var ENDPOINT_POSTER = "https://image.tmdb.org/t/p/w500/";
+var ENDPOINT_POSTER = "https://image.tmdb.org/t/p/w300";
 
 // Return an array of movie
 function searchMovie(name) {
