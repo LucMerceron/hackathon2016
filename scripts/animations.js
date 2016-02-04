@@ -1,12 +1,7 @@
 "use strict";
 
 // Jérémie
-
-// Tooltip on hover
-
-// Button of tooltip handling
-
-
+// Creation HTML CardUI for Person or Movie
 
 var PersonHTMLObject = function ( name, urlPicture ){
 
@@ -90,21 +85,131 @@ var PersonHTMLObject = function ( name, urlPicture ){
   };
 
   this.setBirthday = function( birthdayDate, placeBirhtday ){
-    moviePersonBirthday.innerHTML = birthday + '-' + placebirth;
+    moviePersonBirthday.innerHTML = birthdayDate + '-' + placeBirhtday;
   };
 
-  this.setBiograĥy = function( biography ){
+  this.setBiography = function( biography ){
     moviePersonBiography.innerHTML = biography;
   }
 
   this.setKnownFor = function( knownFor ){
-    moviePersonKnown.innerHTML = knwownFor;
+    moviePersonKnown.innerHTML = knownFor;
   };
 
   this.closeLoader = function(){
     moviePersonContainer.style.display = "none";
     moviePersonNotShow.className = '';
     moviePersonNotShow.style.display = "block";
+  };
+
+}
+
+var MovieHTMLObject = function ( name, urlPicture ){
+
+  var movieShowCard = document.createElement( 'div' );
+  movieShowCard.className = 'movie_show_card';
+
+  var movieShowCardPicture = document.createElement( 'div' );
+  movieShowCardPicture.className = 'movie_show_card_picture';
+  movieShowCardPicture.style.backgroundImage = 'url(\'' + urlPicture + '\')';
+  movieShowCard.appendChild( movieShowCardPicture );
+
+  var movieShowCardContainer = document.createElement( 'div' );
+  movieShowCardContainer.className = 'movie_show_card_body_container';
+  movieShowCard.appendChild( movieShowCardContainer );
+
+  var movieShowCardBody = document.createElement( 'div' );
+  movieShowCardBody.className = 'movie_show_card_body';
+  movieShowCardContainer.appendChild( movieShowCardBody );
+
+  var movieShowContainer = document.createElement( 'div' );
+  movieShowContainer.className = 'container';
+  movieShowCardBody.appendChild( movieShowContainer );
+
+  var movieShowPreLoader = document.createElement( 'div' );
+  movieShowPreLoader.className = 'preloader';
+  movieShowContainer.appendChild( movieShowPreLoader );
+
+  var movieShowNotShow = document.createElement( 'div' );
+  movieShowNotShow.className = 'notShow';
+  movieShowCardBody.appendChild( movieShowNotShow );
+
+  var movieShowPannel = document.createElement( 'div' );
+  movieShowPannel.className = 'movie_show_pannel';
+  movieShowNotShow.appendChild( movieShowPannel );
+
+  var movieShowName = document.createElement( 'div' );
+  movieShowName.className = 'movie_show_name';
+  movieShowName.innerHTML = name;
+  movieShowPannel.appendChild( movieShowName );
+
+  var movieShowRatingPannel = document.createElement( 'div' );
+  movieShowRatingPannel.className = 'movie_show_ratingPannel';
+  movieShowPannel.appendChild( movieShowRatingPannel );
+
+  var movieShowRatingTitle = document.createElement( 'div' );
+  movieShowRatingTitle.className = 'movie_show_rating_title';
+  movieShowRatingTitle.innerHTML = 'popularity';
+  movieShowRatingPannel.appendChild( movieShowRatingTitle );
+
+  var movieShowRatingNumber = document.createElement( 'div' );
+  movieShowRatingNumber.className = 'movie_show_rating_number';
+  movieShowRatingPannel.appendChild( movieShowRatingNumber );
+
+  var movieShowDate = document.createElement( 'div' );
+  movieShowDate.className = 'movie_show_date';
+  movieShowNotShow.appendChild( movieShowDate );
+
+  var movieShowGenre = document.createElement( 'div' );
+  movieShowGenre.className = 'movie_show_genre';
+  movieShowNotShow.appendChild( movieShowGenre );
+
+  var movieShowOverview = document.createElement( 'div' );
+  movieShowOverview.className = 'movie_show_overview';
+  movieShowNotShow.appendChild( movieShowOverview );
+
+  var movieShowActeurs = document.createElement( 'div' );
+  movieShowActeurs.className = 'movie_show_acteurs';
+  movieShowNotShow.appendChild( movieShowActeurs );
+
+  var movieShowActeursBtn = document.createElement( 'div' );
+  movieShowActeursBtn.className = 'movie_show_acteurs_btn';
+  movieShowActeursBtn.innerHTML = '>ACTEURS<';
+  movieShowActeurs.appendChild( movieShowActeursBtn );
+
+  this.getHTMLElement = function(){
+    return movieShowCard;
+  };
+
+  this.setPopularity = function( popularity ){
+    movieShowRatingNumber.innerHTML = popularity;
+  };
+
+  this.setDate = function( date ){
+    movieShowDate.innerHTML = date;
+  };
+
+  this.setGenre = function( genre ){
+    var res = '';
+
+    for(var i= 0; i < genre.length; i++){
+      if ( res == '' ){
+        res = genre[i];
+      }else {
+        res = res + ' - ' + genre[i];
+      }
+    }
+    movieShowGenre.innerHTML = genre;
+  }
+
+  this.setOverview = function( overview ){
+    movieShowOverview.innerHTML = overview;
+  };
+
+  this.closeLoader = function(){
+    movieShowContainer.style.display = "none";
+    movieShowNotShow.className = '';
+    movieShowNotShow.style.display = "block";
   };
 
 }

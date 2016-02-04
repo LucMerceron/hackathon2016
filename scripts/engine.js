@@ -27,7 +27,7 @@ function init() {
   scene = new THREE.Scene();
 
   for ( var i = 0; i < launchItems.length; i += 2 ) {
-    var element = new PersonHTMLObject('Bernard', ENDPOINT_POSTER + "/r7WLn4Kbnqb6oJ8TmSI0e4LkWTj.jpg").getHTMLElement(); 
+    var element = new PersonHTMLObject('Bernard', ENDPOINT_POSTER + "/r7WLn4Kbnqb6oJ8TmSI0e4LkWTj.jpg").getHTMLElement();
     console.log(element);
 
     //var element = document.createElement( 'div' );
@@ -48,7 +48,7 @@ function init() {
     (function (j){
       object.element.onclick = evt => { moveCameraToObject(j); }
     })(object)
-    
+
     scene.add( object );
 
     objects.push( object );

@@ -123,6 +123,7 @@ body{
   background-color: #333;
 }
 
+/* Person Card UI */
 .movie_person_card{
   font-family: Helvetica, sans-serif;
   font-size: 16px;
@@ -262,6 +263,144 @@ body{
 
 .notShow{
   display: none;
+}
+
+/* Movie */
+.movie_show_card{
+  font-family: Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+  background-color: rgba(0,0,0,0);
+  height: 0px;
+  width: 730px;
+}
+
+.movie_show_card:hover{
+  width: 730px;
+}
+
+.movie_show_card_picture{
+  width: 200px;
+  height: 230px;
+  box-shadow: 0px 0px 12px rgba(0,255,255,0.75);
+  border: 1px solid rgba(127,255,255,0.75);
+  background-size:cover;
+  background-position:center;
+  background-repeat: no-repeat;
+}
+
+.movie_show_card_body_container{
+  position: relative;
+  text-transform: uppercase;
+  display: none;
+  width: 500px;
+  height: 350px;
+}
+
+.movie_show_card_body{
+  margin-left: 10px;
+  height: 350px;
+  width: 490px;
+  overflow: hidden;
+  background-color: rgba(180,255,150,0.28);
+  padding: 15px;
+  box-shadow: 0px 0px 12px rgba(180,255,255,0.75);
+  border: 1px solid rgba(180,255,255,0.75);
+  color: #fff;
+}
+
+.movie_show_card:hover .movie_show_card_body_container{
+  display: inline-block;
+  vertical-align: top;
+}
+
+.movie_show_card_picture{
+  display: inline-block;
+  vertical-align: top;
+  color: #fff;
+}
+
+.movie_show_pannel{
+  width: 100%;
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.movie_show_ratingPannel{
+  float: right;
+  width: 20%;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 3px;
+}
+
+.movie_show_rating_number{
+  margin-top: -15px;
+  font-size: 55px;
+}
+
+.movie_show_name, .movie_show_ratingPannel{
+  display: inline-block;
+  vertical-align: top;
+}
+
+.movie_show_name{
+  width: 78%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-shadow: 0 0 10px rgba(0,255,255,0.95);
+}
+
+.movie_show_date{
+  font-weight: bold;
+  font-size: 15px;
+  margin-top: 10px;
+}
+
+.movie_show_genre{
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-weight: bold;
+  font-size: 15px;
+  margin-top: 10px;
+}
+
+.movie_show_overview{
+  width: 460px;
+  height: 160px;
+  overflow: auto;
+  font-weight: bold;
+  font-size: 15px;
+  margin-top: 10px;
+}
+
+.movie_show_overview::-webkit-scrollbar {
+    display: none;
+}
+
+.movie_show_acteurs{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  margin: 10px auto 10px auto;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.movie_show_acteurs_btn{
+  margin: 0;
+  padding: 0;
+  text-shadow: 0 0 10px rgba(0,255,255,0.95);
+}
+
+.movie_show_acteurs_btn:hover{
+  text-shadow: 0 0 10px rgba(0,255,255,1);
+  cursor: pointer;
 }
 
 /* LOADER */
