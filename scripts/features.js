@@ -9,6 +9,13 @@ function handleInputChange(element) {
   goodTile = false;
   flaggounet = false;
 
+  TWEEN.removeAll();
+  new TWEEN.Tween( camera.position )
+    .to( {x: 0, y: 0, z: 7000}, 7000 )
+    .easing( TWEEN.Easing.Exponential.Out )
+    .onUpdate(render)
+    .start();
+
   var pWait = new Promise(function(resolve, reject) { 
     setTimeout(resolve, 4000);
   });
