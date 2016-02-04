@@ -15,7 +15,7 @@ function handleInputChange(element) {
   new TWEEN.Tween( cameraPosition )
     .to( {x: 0, y: 0, z: INITIAL_CAMERA_Z}, 5000 )
     .easing( TWEEN.Easing.Exponential.Out )
-    .onUpdate(() =>{      
+    .onUpdate(() =>{
       camera.position.x = cameraPosition.x;
       camera.position.y = cameraPosition.y;
       camera.position.z = cameraPosition.z;
@@ -23,7 +23,7 @@ function handleInputChange(element) {
     })
     .start();
 
-  var pWait = new Promise(function(resolve, reject) { 
+  var pWait = new Promise(function(resolve, reject) {
     setTimeout(resolve, 4000);
   });
   STWcalled = setInterval(function(){ starWars(); }, 20);
@@ -163,7 +163,7 @@ function tileInFront(tile, cameraPos){
 }
 
 function removeTile(object) {
-  // Delete old object 
+  // Delete old object
   const index = objects.indexOf(object);
   if (index > -1) {
     objects.splice(index, 1);
@@ -192,19 +192,73 @@ function popLayer(offset) {
 }
 
 function _getNextTile() {
-	if (Math.random() > 0.5 && StoreManager.getMovies().length > 0 && false) { // TODO remove false!!
+	if (Math.random() > 0.5 && StoreManager.getMovies().length > 0) {
 		// Pop movie
+    console.log('pop movie');
+    let movie = StoreManager.getMovies().shift();
+    let movieElt = new MovieHTMLObject(movie.original_title, movie.poster_path ? ENDPOINT_POSTER + movie.poster_path : null);
+    movieElt.setId( movie.id );
+    setListener( movieElt, evt=> { console.log( 'test') ; } );
+    return movieElt.getHTMLElement();
 	} else if (StoreManager.getActors().length > 0) {
 		// Pop actor
     console.log('pop actor');
 		let actor = StoreManager.getActors().shift();
 		let actorElt = new PersonHTMLObject(actor.name, actor.profile_path ? ENDPOINT_POSTER + actor.profile_path : null);
-		return actorElt.getHTMLElement();
+    actorElt.setId( actor.id );
+    setListener( actorElt, evt=> { console.log( 'test') ; } );
+    return actorElt.getHTMLElement();
 	} else {
 		// Pop fake
 		return newFakeTile();
 	}
 }
+
+function setListener( element, evtOnClick ){
+  (function (el){
+    var object = el.getHTMLElement();
+    object.onmouseover = evt => {
+
+      if ( el.getId() > -1 ){
+
+        if ( el.isMovie() == true ){
+          getMovieDetails( el.getId() ).then(
+            details => {
+              el.setPopularity( Math.round(details.popularity) );
+              el.setDate( details.release_date );
+
+              var genre = new Array();
+              for ( var i = 0; i < details.genres.length; i++ ){
+                genre.push( details.genres[i].name );
+              }
+              el.setGenre( genre );
+              el.setOverview( details.overview );
+              el.closeLoader();
+            }
+          );
+        }else {
+          getPersonDetails( el.getId() ).then(
+            details => {
+              el.setPopularity( Math.round(details.popularity) );
+              el.setBirthday( details.birthday, details.place_of_birth );
+              el.setBiography( details.biography );
+              el.setKnownFor( details.also_known_as );
+              el.closeLoader();
+            }
+          );
+        }
+      }
+      object.onmouseover = null;
+    };
+
+    el.setOnClickListener(
+      evtOnClick
+    );
+
+  })(element);
+}
+
+
 
 function removeEntity(object) {
   var selectedObject = scene.getObjectByName(object.name);
@@ -282,7 +336,7 @@ function mousewheel( e ) {
   var cameraPosition = camera.position.clone();
   var cameraTarget = camera.position.clone();
 
-  if(e.deltaY > 0 && cameraPosition.z <= 7000) {
+  if(e.deltaY > 0 && cameraPosition.z <= INITIAL_CAMERA_Z) {
     cameraTarget.z += 500;
     new TWEEN.Tween( cameraPosition )
     .to( cameraTarget, 200 )
