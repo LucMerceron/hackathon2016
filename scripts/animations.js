@@ -84,15 +84,15 @@ var PersonHTMLObject = function ( name, urlPicture ){
 
   this.getId = function(){
     return id;
-  }
+  };
 
   this.setId = function( idPerson ){
     id = idPerson;
-  }
+  };
 
   this.isMovie = function(){
     return isMovie;
-  }
+  };
 
   this.getHTMLElement = function(){
     return moviePersonCard;
@@ -127,6 +127,10 @@ var PersonHTMLObject = function ( name, urlPicture ){
     moviePersonContainer.style.display = "none";
     moviePersonNotShow.className = '';
     moviePersonNotShow.style.display = "block";
+  };
+
+  this.setOnClickListener = function( evt ){
+    moviePersonFilmographyBtn.onclick = evt;
   };
 
 }
@@ -210,15 +214,15 @@ var MovieHTMLObject = function ( name, urlPicture ){
 
   this.isMovie = function(){
     return isMovie;
-  }
+  };
 
   this.getId = function(){
     return id;
-  }
+  };
 
   this.setId = function( idMovie ){
     id = idMovie;
-  }
+  };
 
   this.getHTMLElement = function(){
     return movieShowCard;
@@ -253,6 +257,10 @@ var MovieHTMLObject = function ( name, urlPicture ){
     movieShowContainer.style.display = "none";
     movieShowNotShow.className = '';
     movieShowNotShow.style.display = "block";
+  };
+
+  this.setOnClickListener = function( evt ){
+    movieShowActeursBtn.onclick = evt;
   };
 
 }

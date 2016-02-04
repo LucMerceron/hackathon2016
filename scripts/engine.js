@@ -43,7 +43,7 @@ function init() {
     object.position.y = Math.random() * 8000 - 2000;
     object.position.z = Math.random() * 8000 - 2000;
 
-    // Listen on onclick event + hover (onmouseover)
+    // Listen on onclick event + hover (onmouseover) + onclick on button
     (function (j,el){
       object.element.onclick = evt => { moveCameraToObject(j); };
       object.element.onmouseover = evt => {
@@ -78,7 +78,13 @@ function init() {
           }
         }
         j.element.onmouseover = null;
-      }
+      };
+
+      el.setOnClickListener(
+        evt => {
+          console.log( 'click with Id : ' + el.getId() );
+        }
+      );
 
     })(object,element)
     scene.add( object );
