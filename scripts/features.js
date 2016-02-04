@@ -2,28 +2,23 @@
 
 // Luc
 
-var promiseWait = new Promise(function(resolve, reject) { 
-  setTimeout(()=>resolve(), 30000);
-})
-
 function handleInputChange(element) {
-  STWcalled = setInterval(function(){ starWars(); }, 10);
-  promiseWait.then(()=>console.log('ok'));
-}
-
-
-function launchRequest(element){
-  searchPersonAndMovie(element.value)
-    .then(results => {
-      StoreManager.setMovies(results[0]);
-      StoreManager.setActors(results[1]);
-      clearInterval(STWcalled);
+  var pWait = new Promise(function(resolve, reject) { 
+    setTimeout(resolve, 17000);
   });
+  STWcalled = setInterval(function(){ starWars(); }, 20);
+
+  Promise.all([
+    searchPersonAndMovie(element.value),
+    pWait
+    ]).then((results) => {
+      StoreManager.setMovies(results[0][0]);
+      StoreManager.setActors(results[0][1]);
+      clearInterval(STWcalled)
+    })
 }
-var looping = "false";
 
 function starWars(){
-  console.log('called');
   for (var i = 0; i < objects.length; i++) {
     let objectPos = objects[i].position;
     let cameraPos = camera.position;
