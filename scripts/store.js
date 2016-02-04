@@ -1,4 +1,6 @@
-var _store = {
+"use strict";
+
+let _store = {
   actors: [],
   movies: []
 }

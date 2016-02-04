@@ -1,10 +1,13 @@
+"use strict";
+
 // Luc
 
 function handleInputChange(element) {
-  console.log(element.value);
-
-  // Get the Promise and add the result when then called
-
+  searchPersonAndMovie(element.value)
+    .then(results => {
+      StoreManager.setMovies(results[0]);
+      StoreManager.setActors(results[1]);
+  });
 }
 
 function moveCameraToObject(object) {
