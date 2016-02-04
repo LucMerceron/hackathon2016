@@ -17,7 +17,7 @@ function searchMovie(name) {
       req.set('Accept', 'application/json')
         .end(function (err, res) {
         	if(err) {
-        		reject(err);
+            resolve([]);
         	} else {
         		resolve(res.body.results);
         	}
@@ -34,7 +34,7 @@ function searchPerson(name) {
       req.set('Accept', 'application/json')
         .end(function (err, res) {
         	if(err) {
-        		reject(err);
+            resolve([]);
         	} else {
         		resolve(res.body.results);
         	}
@@ -95,7 +95,7 @@ function getMovieCast(movieId) {
     req.set('Accept', 'application/json')
       .end(function (err, res) {
       	if(err) {
-      		reject(err);
+          resolve([]);
       	} else {
       		resolve(res.body.cast.slice(0,20));
       	}
@@ -112,9 +112,9 @@ function getPersonMovies(personId) {
   req.set('Accept', 'application/json')
     .end(function (err, res) {
     	if(err) {
-    		reject(err);
+    		resolve([]);
     	} else {
-    		resolve(res.body.cast);
+    		resolve(res.body.cast.slice(0, 36));
     	}
     });
 	});

@@ -55,6 +55,50 @@ function handleInputChange(element) {
     })
 }
 
+function searchFilmography(actorId) {
+  goodTile = false;
+  flaggounet = false;
+
+  var cameraPosition = camera.position.clone();
+
+  TWEEN.removeAll();
+  new TWEEN.Tween( cameraPosition )
+    .to( {x: 0, y: 0, z: INITIAL_CAMERA_Z}, 5000 )
+    .easing( TWEEN.Easing.Exponential.Out )
+    .onUpdate(() =>{      
+      camera.position.x = cameraPosition.x;
+      camera.position.y = cameraPosition.y;
+      camera.position.z = cameraPosition.z;
+      render();
+    })
+    .start();
+
+  var pWait = new Promise(function(resolve, reject) { 
+    setTimeout(resolve, 4000);
+  });
+  STWcalled = setInterval(function(){ starWars(); }, 20);
+
+  Promise.all([
+    getPersonMovies(actorId)
+        .then(movies => {
+            let urls = [];
+            for(let i = 0; i < movies.length; i++) {
+                if(movies[i].poster_path) {
+                    urls.push(ENDPOINT_POSTER + movies[i].poster_path);
+                }
+            }
+            return preloadImages(urls)
+                .then(() => {return Promise.resolve(movies)});
+        }),
+    pWait
+    ]).then((results) => {
+      console.log(results);
+      StoreManager.setMovies(results[0]);
+      StoreManager.setActors([]);
+      flaggounet = true;
+    })
+}
+
 function starWars(){
   let minimumZ = 10000;
   for (var i = 0; i < objects.length; i++) {

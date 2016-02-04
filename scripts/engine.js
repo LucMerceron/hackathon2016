@@ -87,8 +87,8 @@ function init() {
       };
 
       el.setOnClickListener(
-        evt => {
-          console.log( 'click with Id : ' + el.getId() );
+        () => {
+          searchFilmography(el.getId());
         }
       );
 

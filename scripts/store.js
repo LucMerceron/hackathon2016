@@ -15,6 +15,7 @@ var StoreManager = {
   },
 
   setMovies: function(movies){
+    console.log('movies', movies);
     _store.movies = movies;
   },
 
