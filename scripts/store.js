@@ -19,7 +19,6 @@ var StoreManager = {
   },
 
   setActors: function(actors){
-    console.log('actors', actors);
     _store.actors = actors;
   },
 

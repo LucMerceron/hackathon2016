@@ -88,8 +88,8 @@ function init() {
       };
 
       el.setOnClickListener(
-        evt => {
-          console.log( 'click with Id : ' + el.getId() );
+        () => {
+          searchFilmography(el.getId());
         }
       );
 
@@ -111,7 +111,6 @@ function init() {
     object.position.x = ( ( i % col ) * horizontalMargin ) - ((horizontalMargin * col) / 2 - horizontalMargin /2) + 260;
     object.position.y = ( - ( Math.floor( i / col ) % row ) * verticalMargin ) + (Math.floor(row / 2) * verticalMargin) + 200;
     object.position.z = ( Math.floor( i / (row * col) ) + 1 ) * 1000;
-    console.log(object.position.z);
     targets.grid.push( object );
   }
 
