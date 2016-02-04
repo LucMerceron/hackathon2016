@@ -94,13 +94,13 @@ function init() {
     var object = new THREE.Object3D();
 
     var col = 6;
-    var row = 4;
+    var row = 3;
     var horizontalMargin = 800;
     var verticalMargin = 400;
 
     object.position.x = ( ( i % col ) * horizontalMargin ) - ((horizontalMargin * col) / 2 - horizontalMargin /2);
     object.position.y = ( - ( Math.floor( i / col ) % row ) * verticalMargin ) + (Math.floor(row / 2) * verticalMargin);
-    object.position.z = ( Math.floor( i / (row * col) ) ) * 1000;
+    object.position.z = ( Math.floor( i / (row * col) ) + 1 ) * 1000;
     targets.grid.push( object );
 
   }

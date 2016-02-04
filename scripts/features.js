@@ -14,7 +14,7 @@ function handleInputChange(element) {
     ]).then((results) => {
       StoreManager.setMovies(results[0][0]);
       StoreManager.setActors(results[0][1]);
-      clearInterval(STWcalled)
+      setTimeout(()=>{clearInterval(STWcalled); smoothStop()}, 1800);
     })
 }
 
@@ -26,10 +26,80 @@ function starWars(){
     if (objectBehindCamera(objectPos, cameraPos)) {
       popTile(objects[i]);
     } else {
-      objectPos.z += 50;
+      objectPos.z += 100;
     }
     render();
   }
+}
+
+function smoothStop(){
+
+  var cameraPosition = camera.position.clone();
+  var targetPosition = {x: cameraPosition.x, y: cameraPosition.y, z: cameraPosition.z - 1500};
+
+  TWEEN.removeAll();
+  new TWEEN.Tween( cameraPosition )
+    .to( targetPosition, 4000 )
+    .easing( TWEEN.Easing.Exponential.Out )
+    .onUpdate( () => {
+      console.log(cameraPosition);
+        camera.position.x = cameraPosition.x;
+        camera.position.y = cameraPosition.y;
+        camera.position.z = cameraPosition.z;
+        render();
+      }
+    )
+    .start();
+}
+
+function popTile(object) {
+	let tile = _getNextTile();
+
+	let randomX = -2000 + Math.random() * 4000;
+	let randomY = -600 + Math.random() * 1400;
+	let randomZ = Math.random() * 50;
+
+	scene.remove(object);
+
+	const index = objects.indexOf(object);
+	if (index > -1) {
+    objects.splice(index, 1);
+	}
+
+  var object = new THREE.CSS3DObject(tile);
+  object.position.x = randomX;
+  object.position.y = randomY;
+  object.position.z = randomZ;
+
+  // Listen on onclick event
+  (function (j){
+    object.element.onclick = evt => { moveCameraToObject(j); }
+  })(object)
+
+  scene.add(object);
+  objects.push(object);
+}
+
+function _getNextTile() {
+	if (Math.random() > 0.5 && StoreManager.getMovies().length > 0 && false) { // TODO remove false!!
+		// Pop movie
+	} else if (StoreManager.getActors().length > 0) {
+		// Pop actor
+		let actor = StoreManager.getActors().shift();
+		let actorElt = new PersonHTMLObject(actor.name, actor.profile_path ? ENDPOINT_POSTER + actor.profile_path : null);
+		return actorElt.getHTMLElement();
+	} else {
+		// Pop fake
+		let fakeTile = document.createElement( 'div' );
+    fakeTile.className = 'fakeElement';
+    return fakeTile;
+	}
+}
+
+function removeEntity(object) {
+  var selectedObject = scene.getObjectByName(object.name);
+  scene.remove(selectedObject);
+  animate();
 }
 
 function objectBehindCamera(object, camera){
@@ -42,7 +112,7 @@ function moveCameraToObject(object) {
   var cameraOrientation = camera.position.clone();
   var targetOrientation = object.position.clone();
 
-  targetOrientation.set(targetOrientation.x + 200, targetOrientation.y, targetOrientation.z + 1000);
+  targetOrientation.set(targetOrientation.x + 120, targetOrientation.y - 170, targetOrientation.z + 1000);
 
   TWEEN.removeAll();
   new TWEEN.Tween( cameraOrientation )
