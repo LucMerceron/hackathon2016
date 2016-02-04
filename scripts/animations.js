@@ -146,7 +146,8 @@ var MovieHTMLObject = function ( name, urlPicture ){
 
   var movieShowCardPicture = document.createElement( 'div' );
   movieShowCardPicture.className = 'movie_show_card_picture';
-  movieShowCardPicture.style.backgroundImage = 'url(\'' + urlPicture + '\')';
+  if (urlPicture)
+    movieShowCardPicture.style.backgroundImage = 'url(\'' + urlPicture + '\')';
   movieShowCard.appendChild( movieShowCardPicture );
 
   var movieShowCardContainer = document.createElement( 'div' );
