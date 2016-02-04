@@ -41,7 +41,8 @@ function init() {
   }
 
   for ( var i = 0; i < launchItems.length; i += 2 ) {
-    var element = new PersonHTMLObject('Bernard', ENDPOINT_POSTER + "/r7WLn4Kbnqb6oJ8TmSI0e4LkWTj.jpg");
+    console.log(launchItems[i])
+    var element = new PersonHTMLObject(launchItems[i].original_title, ENDPOINT_POSTER + launchItems[i].poster_path);
     element.setId( 3223 );
 
     var object = new THREE.CSS3DObject( element.getHTMLElement() );
