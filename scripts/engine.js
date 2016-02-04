@@ -28,8 +28,11 @@ function init() {
   scene = new THREE.Scene();
 
   for ( var i = 0; i < launchItems.length; i += 2 ) {
-    var element = document.createElement( 'div' );
-    element.className = 'fakeElement';
+    var element = new PersonHTMLObject('Bernard', ENDPOINT_POSTER + "/r7WLn4Kbnqb6oJ8TmSI0e4LkWTj.jpg").getHTMLElement(); 
+    console.log(element);
+
+    //var element = document.createElement( 'div' );
+    //element.className = 'fakeElement';
     // element.style.backgroundColor = 'rgba(0,127,127,' + ( Math.random() * 0.5 + 0.25 ) + ')';
 
     // var poster = document.createElement('img');
@@ -61,7 +64,7 @@ function init() {
 
     var col = 10;
     var row = 5;
-    var horizontalMargin = 400;
+    var horizontalMargin = 800;
     var verticalMargin = 400;
 
     object.position.x = ( ( i % col ) * horizontalMargin ) - ((horizontalMargin * col) / 2 - horizontalMargin /2);

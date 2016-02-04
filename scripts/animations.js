@@ -15,7 +15,7 @@ var PersonHTMLObject = function ( name, urlPicture ){
 
   var moviePersonCardPicture = document.createElement( 'div' );
   moviePersonCardPicture.className = 'movie_person_card_picture';
-  moviePersonCardPicture.style.backgroundImage = urlPicture;
+  moviePersonCardPicture.style.backgroundImage = 'url(\'' + urlPicture + '\')';
   moviePersonCard.appendChild( moviePersonCardPicture );
 
   var moviePersonCardBody = document.createElement( 'div' );
