@@ -46,6 +46,7 @@ function searchPerson(name) {
 // [0] => array of movies
 // [1] => array of persons
 function searchPersonAndMovie(name) {
+	console.log('search', name);
 	return Promise.all([
 		searchMovie(name),
 		searchPerson(name)
