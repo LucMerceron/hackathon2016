@@ -2,7 +2,14 @@
 
 // Luc
 
+var goodTile = false;
+var flaggounet = false;
+
 function handleInputChange(element) {
+
+  goodTile = false;
+  flaggounet = false;
+
   var pWait = new Promise(function(resolve, reject) { 
     setTimeout(resolve, 4000);
   });
@@ -31,13 +38,14 @@ function handleInputChange(element) {
     ]).then((results) => {
       StoreManager.setMovies(results[0][0]);
       StoreManager.setActors(results[0][1]);
-      setTimeout(()=>{clearInterval(STWcalled); smoothStop()}, 1800);
+      flaggounet = true;
     })
 }
 
 function starWars(){
   for (var i = 0; i < objects.length; i++) {
-    let objectPos = objects[i].position;
+    let object = objects[i];
+    let objectPos = object.position;
     let cameraPos = camera.position;
 
     if (objectBehindCamera(objectPos, cameraPos)) {
@@ -45,21 +53,29 @@ function starWars(){
     } else {
       objectPos.z += 100;
     }
+
+
+    if (flaggounet && tileInFront(object, cameraPos))
+      goodTile = true;
+
     render();
+  }
+
+  if (goodTile) {
+    clearInterval(STWcalled);
+    smoothStop();
   }
 }
 
 function smoothStop(){
-  
   var cameraPosition = camera.position.clone();
-  var targetPosition = {x: cameraPosition.x, y: cameraPosition.y, z: cameraPosition.z - 1500};
+  var targetPosition = {x: cameraPosition.x, y: cameraPosition.y, z: cameraPosition.z - 1000};
 
   TWEEN.removeAll();
   new TWEEN.Tween( cameraPosition )
-    .to( targetPosition, 4000 )
+    .to( targetPosition, 3000 )
     .easing( TWEEN.Easing.Exponential.Out )
     .onUpdate( () => {
-      console.log(cameraPosition);
         camera.position.x = cameraPosition.x;
         camera.position.y = cameraPosition.y;
         camera.position.z = cameraPosition.z;
@@ -67,6 +83,10 @@ function smoothStop(){
       }
     )
     .start();
+}
+
+function tileInFront(tile, cameraPos){
+  return (tile.element.className !== 'fakeElement' && (cameraPos.z - tile.position.z) < 3000)
 }
 
 function popTile(object) {
