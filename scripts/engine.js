@@ -27,8 +27,7 @@ function init() {
   scene = new THREE.Scene();
 
   for ( var i = 0; i < launchItems.length; i += 2 ) {
-    var element = new PersonHTMLObject('Bernard', ENDPOINT_POSTER + "/r7WLn4Kbnqb6oJ8TmSI0e4LkWTj.jpg").getHTMLElement();
-    console.log(element);
+    var element = new PersonHTMLObject('Bernard', ENDPOINT_POSTER + "/r7WLn4Kbnqb6oJ8TmSI0e4LkWTj.jpg").getHTMLElement(); 
 
     //var element = document.createElement( 'div' );
     //element.className = 'fakeElement';
@@ -61,15 +60,14 @@ function init() {
 
     var object = new THREE.Object3D();
 
-    var col = 3;
-    var row = 3;
+    var col = 6;
+    var row = 4;
     var horizontalMargin = 800;
     var verticalMargin = 400;
 
     object.position.x = ( ( i % col ) * horizontalMargin ) - ((horizontalMargin * col) / 2 - horizontalMargin /2);
     object.position.y = ( - ( Math.floor( i / col ) % row ) * verticalMargin ) + (Math.floor(row / 2) * verticalMargin);
     object.position.z = ( Math.floor( i / (row * col) ) ) * 1000;
-
     targets.grid.push( object );
 
   }
