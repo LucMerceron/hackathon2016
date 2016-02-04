@@ -401,3 +401,8 @@ var launchItems = [
    81, "https://image.tmdb.org/t/p/w500/y2rl0OkMfZHpBaQYPfSJmLMOxwp.jpg",
    82, "https://image.tmdb.org/t/p/w500/3BsNsigWcET4tKLZZhJegw7eOjF.jpg"
 ];
+
+var personItems = [
+  3223,
+  116
+];

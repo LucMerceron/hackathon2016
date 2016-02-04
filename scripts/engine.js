@@ -28,7 +28,6 @@ function init() {
   scene = new THREE.Scene();
 
   for ( var i = 0; i < launchItems.length; i += 2 ) {
-
     var element = document.createElement( 'div' );
     element.className = 'fakeElement';
     // element.style.backgroundColor = 'rgba(0,127,127,' + ( Math.random() * 0.5 + 0.25 ) + ')';
