@@ -6,6 +6,7 @@ var goodTile = false;
 var flaggounet = false;
 var flaggounetNoResult = false;
 var flagOverview = false;
+var cameraPosInit = {x: 0, y: 0, z: INITIAL_CAMERA_Z}
 
 function handleInputChange(element) {
   clearInterval(STWcalled);
@@ -13,19 +14,7 @@ function handleInputChange(element) {
   flaggounet = false;
   flaggounetNoResult = false;
 
-  var cameraPosition = camera.position.clone();
-
-  TWEEN.removeAll();
-  new TWEEN.Tween( cameraPosition )
-    .to( {x: 0, y: 0, z: INITIAL_CAMERA_Z}, 5000 )
-    .easing( TWEEN.Easing.Cubic.InOut )
-    .onUpdate(() =>{
-      camera.position.x = cameraPosition.x;
-      camera.position.y = cameraPosition.y;
-      camera.position.z = cameraPosition.z;
-      render();
-    })
-    .start();
+  smoothMiddle();
 
   var pWait = new Promise(function(resolve, reject) {
     setTimeout(resolve, 4000);
@@ -67,19 +56,7 @@ function searchFilmography(actorId) {
   flaggounet = false;
   flaggounetNoResult = false;
 
-  var cameraPosition = camera.position.clone();
-
-  TWEEN.removeAll();
-  new TWEEN.Tween( cameraPosition )
-    .to( {x: 0, y: 0, z: INITIAL_CAMERA_Z}, 5000 )
-    .easing( TWEEN.Easing.Cubic.InOut )
-    .onUpdate(() =>{      
-      camera.position.x = cameraPosition.x;
-      camera.position.y = cameraPosition.y;
-      camera.position.z = cameraPosition.z;
-      render();
-    })
-    .start();
+  smoothMiddle();
 
   var pWait = new Promise(function(resolve, reject) { 
     setTimeout(resolve, 4000);
@@ -114,19 +91,7 @@ function searchCast(movieId) {
   flaggounet = false;
   flaggounetNoResult = false;
 
-  var cameraPosition = camera.position.clone();
-
-  TWEEN.removeAll();
-  new TWEEN.Tween( cameraPosition )
-    .to( {x: 0, y: 0, z: INITIAL_CAMERA_Z}, 5000 )
-    .easing( TWEEN.Easing.Cubic.InOut )
-    .onUpdate(() =>{      
-      camera.position.x = cameraPosition.x;
-      camera.position.y = cameraPosition.y;
-      camera.position.z = cameraPosition.z;
-      render();
-    })
-    .start();
+  smoothMiddle();
 
   var pWait = new Promise(function(resolve, reject) { 
     setTimeout(resolve, 4000);
@@ -160,7 +125,7 @@ function starWars(){
   for (var i = 0; i < objects.length; i++) {
     let object = objects[i];
     let objectPos = object.position;
-    let cameraPos = camera.position;
+    let cameraPos = cameraPosInit;
 
     if (objectBehindCamera(objectPos, cameraPos)) {
       removeTile(object);
@@ -202,6 +167,22 @@ function starWars(){
   }
 }
 
+function smoothMiddle(){
+  var cameraPosStw = camera.position.clone();
+
+  TWEEN.removeAll();
+  new TWEEN.Tween( cameraPosStw )
+    .to( {x: 0, y: 0, z: INITIAL_CAMERA_Z}, 3000 )
+    .easing( TWEEN.Easing.Back.InOut )
+    .onUpdate(() =>{      
+      camera.position.x = cameraPosStw.x;
+      camera.position.y = cameraPosStw.y;
+      camera.position.z = cameraPosStw.z;
+      render();
+    })
+    .start();
+}
+
 function smoothStop(){
   var cameraPosition = camera.position.clone();
   var targetPosition = {x: cameraPosition.x, y: cameraPosition.y, z: cameraPosition.z - 1000};
@@ -218,7 +199,33 @@ function smoothStop(){
       }
     )
     .start();
+
+  attachOverviewListener();
 }
+
+function moveCameraToObject(object) {
+
+  if (!flagOverview){
+    var cameraOrientation = camera.position.clone();
+    var targetOrientation = object.position.clone();
+
+    targetOrientation.set(targetOrientation.x + 120, targetOrientation.y - 170, targetOrientation.z + 900);
+
+    TWEEN.removeAll();
+    new TWEEN.Tween( cameraOrientation )
+      .to( targetOrientation, 2000 )
+      .easing( TWEEN.Easing.Exponential.Out )
+      .onUpdate( () => {
+          camera.position.x = cameraOrientation.x;
+          camera.position.y = cameraOrientation.y;
+          camera.position.z = cameraOrientation.z;
+          render();
+        }
+      )
+      .start();
+  } 
+}
+
 
 function tileInFront(tile, cameraPos){
   return (!(tile.element.className === 'fakeElement' || tile.element.className === 'fakeRoot') && (cameraPos.z - tile.position.z) < 3000)
@@ -344,32 +351,6 @@ function objectBehindCamera(object, camera){
   return object.z > camera.z
 }
 
-
-function moveCameraToObject(object) {
-
-  if (!flagOverview){
-    var cameraOrientation = camera.position.clone();
-    var targetOrientation = object.position.clone();
-
-    targetOrientation.set(targetOrientation.x + 120, targetOrientation.y - 170, targetOrientation.z + 900);
-
-    TWEEN.removeAll();
-    new TWEEN.Tween( cameraOrientation )
-      .to( targetOrientation, 2000 )
-      .easing( TWEEN.Easing.Exponential.InOut )
-      .onUpdate( () => {
-          camera.position.x = cameraOrientation.x;
-          camera.position.y = cameraOrientation.y;
-          camera.position.z = cameraOrientation.z;
-          render();
-        }
-      )
-      .start();
-
-  }
-
- 
-}
 
 
 // listeners
