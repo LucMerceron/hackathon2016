@@ -88,7 +88,10 @@ function init() {
 
       el.setOnClickListener(
         () => {
-          searchFilmography(el.getId());
+          if(el.isMovie())
+            searchCast(el.getId());
+          else
+            searchFilmography(el.getId());
         }
       );
 
