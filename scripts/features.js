@@ -218,7 +218,7 @@ function _getNextTile() {
 		let actor = StoreManager.getActors().shift();
 		let actorElt = new PersonHTMLObject(actor.name, actor.profile_path ? ENDPOINT_POSTER + actor.profile_path : null);
     actorElt.setId( actor.id );
-    setListener( actorElt, evt=> { console.log( 'test') ; } );
+    setListener( actorElt, () => searchFilmography(actorElt.getId()));
     return actorElt.getHTMLElement();
 	} else {
 		// Pop fake
