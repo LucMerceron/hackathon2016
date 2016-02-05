@@ -4,10 +4,13 @@
 
 var goodTile = false;
 var flaggounet = false;
+var flaggounetNoResult = false;
+var flagOverview = false;
 
 function handleInputChange(element) {
   goodTile = false;
   flaggounet = false;
+  flaggounetNoResult = false;
 
   var cameraPosition = camera.position.clone();
 
@@ -52,12 +55,15 @@ function handleInputChange(element) {
       StoreManager.setMovies(results[0][0]);
       StoreManager.setActors(results[0][1]);
       flaggounet = true;
+      if(StoreManager.getMovies().length == 0 && StoreManager.getActors().length == 0)
+      	flaggounetNoResult = true;
     })
 }
 
 function searchFilmography(actorId) {
   goodTile = false;
   flaggounet = false;
+  flaggounetNoResult = false;
 
   var cameraPosition = camera.position.clone();
 
@@ -101,6 +107,7 @@ function searchFilmography(actorId) {
 function searchCast(movieId) {
   goodTile = false;
   flaggounet = false;
+  flaggounetNoResult = false;
 
   var cameraPosition = camera.position.clone();
 
@@ -158,7 +165,7 @@ function starWars(){
       minimumZ = objectPos.z;
 
 
-    if (flaggounet && tileInFront(object, cameraPos))
+    if ((flaggounet && tileInFront(object, cameraPos)) || flaggounetNoResult)
       goodTile = true;
 
     render();
@@ -169,14 +176,19 @@ function starWars(){
   }
 
   if (goodTile) {
+    let tilesToRemove = []
     // If good tile then delete what is between them and the camera
     for (var i = 0; i < objects.length; i++) {
       let object = objects[i];
       let cameraPos = camera.position;
-      if ((object.element.className === 'fakeElement' && (cameraPos.z - object.position.z) < 3000)) {
-        removeTile(object);
+      if ((object.element.className === 'fakeRoot' && (cameraPos.z - object.position.z) < 3000)) {
+        tilesToRemove.push(object);
       }
      }
+
+    for (var i = 0; i < tilesToRemove.length; i++) {
+      removeTile(tilesToRemove[i]);
+    }
     clearInterval(STWcalled);
     smoothStop();
     attachOverviewListener();
@@ -328,24 +340,28 @@ function objectBehindCamera(object, camera){
 
 function moveCameraToObject(object) {
 
-  var cameraOrientation = camera.position.clone();
-  var targetOrientation = object.position.clone();
+  if (!flagOverview){
+    var cameraOrientation = camera.position.clone();
+    var targetOrientation = object.position.clone();
 
-  targetOrientation.set(targetOrientation.x + 120, targetOrientation.y - 170, targetOrientation.z + 1000);
+    targetOrientation.set(targetOrientation.x + 120, targetOrientation.y - 170, targetOrientation.z + 900);
 
-  TWEEN.removeAll();
-  new TWEEN.Tween( cameraOrientation )
-    .to( targetOrientation, 2000 )
-    .easing( TWEEN.Easing.Exponential.InOut )
-    .onUpdate( () => {
-        camera.position.x = cameraOrientation.x;
-        camera.position.y = cameraOrientation.y;
-        camera.position.z = cameraOrientation.z;
-        render();
-      }
-    )
-    .start();
+    TWEEN.removeAll();
+    new TWEEN.Tween( cameraOrientation )
+      .to( targetOrientation, 2000 )
+      .easing( TWEEN.Easing.Exponential.InOut )
+      .onUpdate( () => {
+          camera.position.x = cameraOrientation.x;
+          camera.position.y = cameraOrientation.y;
+          camera.position.z = cameraOrientation.z;
+          render();
+        }
+      )
+      .start();
 
+  }
+
+ 
 }
 
 
@@ -355,15 +371,13 @@ document.addEventListener( 'mousedown', mousedown, false );
 document.addEventListener( 'mousemove', mousemove, false );
 document.addEventListener( 'mouseup', mouseup, false );
 
-var flagOverview = false;
-
 function attachOverviewListener() {
-  var overviewMovie = document.getElementsByClassName('movie_show_overview');
+  var overviewMovie = document.getElementsByClassName('movie_show_card_body');
   for (var i = 0; i < overviewMovie.length; i++) {
     overviewMovie[i].onmouseenter = () => flagOverview = true;
     overviewMovie[i].onmouseleave = () => flagOverview = false;
   }
-  var overviewPerson = document.getElementsByClassName('movie_person_biography');
+  var overviewPerson = document.getElementsByClassName('movie_person_card_body');
   for (var i = 0; i < overviewPerson.length; i++) {
     overviewPerson[i].onmouseenter = () => flagOverview = true;
     overviewPerson[i].onmouseleave = () => flagOverview = false;
