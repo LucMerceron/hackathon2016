@@ -114,7 +114,7 @@ function getPersonMovies(personId) {
     	if(err) {
     		resolve([]);
     	} else {
-    		resolve(res.body.cast.slice(0, 36));
+    		resolve(res.body.cast);
     	}
     });
 	});

@@ -71,7 +71,7 @@ function searchFilmography(actorId) {
   new TWEEN.Tween( cameraPosition )
     .to( {x: 0, y: 0, z: INITIAL_CAMERA_Z}, 5000 )
     .easing( TWEEN.Easing.Exponential.Out )
-    .onUpdate(() =>{
+    .onUpdate(() =>{      
       camera.position.x = cameraPosition.x;
       camera.position.y = cameraPosition.y;
       camera.position.z = cameraPosition.z;
@@ -79,7 +79,7 @@ function searchFilmography(actorId) {
     })
     .start();
 
-  var pWait = new Promise(function(resolve, reject) {
+  var pWait = new Promise(function(resolve, reject) { 
     setTimeout(resolve, 4000);
   });
   STWcalled = setInterval(function(){ starWars(); }, 20);
@@ -115,7 +115,7 @@ function searchCast(movieId) {
   new TWEEN.Tween( cameraPosition )
     .to( {x: 0, y: 0, z: INITIAL_CAMERA_Z}, 5000 )
     .easing( TWEEN.Easing.Exponential.Out )
-    .onUpdate(() =>{
+    .onUpdate(() =>{      
       camera.position.x = cameraPosition.x;
       camera.position.y = cameraPosition.y;
       camera.position.z = cameraPosition.z;
@@ -123,7 +123,7 @@ function searchCast(movieId) {
     })
     .start();
 
-  var pWait = new Promise(function(resolve, reject) {
+  var pWait = new Promise(function(resolve, reject) { 
     setTimeout(resolve, 4000);
   });
   STWcalled = setInterval(function(){ starWars(); }, 20);
@@ -181,7 +181,7 @@ function starWars(){
     for (var i = 0; i < objects.length; i++) {
       let object = objects[i];
       let cameraPos = camera.position;
-      if ((object.element.className === 'fakeRoot' && (cameraPos.z - object.position.z) < 3000)) {
+      if ((object.element.className === 'fakeRoot' && (cameraPos.z - object.position.z) < 2000)) {
         tilesToRemove.push(object);
       }
      }
@@ -424,7 +424,7 @@ function mouseup ( event ) {
 }
 
 function mousewheel( e ) {
-
+  
   var cameraPosition = camera.position.clone();
   var cameraTarget = camera.position.clone();
 
