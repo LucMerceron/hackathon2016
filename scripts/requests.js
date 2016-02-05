@@ -1,11 +1,11 @@
 "use strict";
 
-var ENDPOINT_SEARCH_MOVIE = "http://api.themoviedb.org/3/search/movie?api_key=b5ba231e834cb7e22e4a9342cb76f970&query=";
-var ENDPOINT_SEARCH_PERSON = "http://api.themoviedb.org/3/search/person?api_key=b5ba231e834cb7e22e4a9342cb76f970&query=";
-var ENDPOINT_DETAILS_MOVIE = " http://api.themoviedb.org/3/movie/%s?api_key=b5ba231e834cb7e22e4a9342cb76f970"
-var ENDPOINT_DETAILS_PERSON = " http://api.themoviedb.org/3/person/%s?api_key=b5ba231e834cb7e22e4a9342cb76f970"
-var ENDPOINT_MOVIE_CAST = " http://api.themoviedb.org/3/movie/%s/credits?api_key=b5ba231e834cb7e22e4a9342cb76f970"
-var ENDPOINT_PERSON_MOVIES = " http://api.themoviedb.org/3/person/%s/movie_credits?api_key=b5ba231e834cb7e22e4a9342cb76f970"
+var ENDPOINT_SEARCH_MOVIE = "https://api.themoviedb.org/3/search/movie?api_key=b5ba231e834cb7e22e4a9342cb76f970&query=";
+var ENDPOINT_SEARCH_PERSON = "https://api.themoviedb.org/3/search/person?api_key=b5ba231e834cb7e22e4a9342cb76f970&query=";
+var ENDPOINT_DETAILS_MOVIE = " https://api.themoviedb.org/3/movie/%s?api_key=b5ba231e834cb7e22e4a9342cb76f970"
+var ENDPOINT_DETAILS_PERSON = " https://api.themoviedb.org/3/person/%s?api_key=b5ba231e834cb7e22e4a9342cb76f970"
+var ENDPOINT_MOVIE_CAST = " https://api.themoviedb.org/3/movie/%s/credits?api_key=b5ba231e834cb7e22e4a9342cb76f970"
+var ENDPOINT_PERSON_MOVIES = " https://api.themoviedb.org/3/person/%s/movie_credits?api_key=b5ba231e834cb7e22e4a9342cb76f970"
 var ENDPOINT_POSTER = "https://image.tmdb.org/t/p/w300";
 
 // Return an array of movie
