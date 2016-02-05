@@ -16,6 +16,10 @@ var PersonHTMLObject = function ( name, urlPicture ){
   moviePersonCardPicture.className = 'movie_person_card_picture';
   if(urlPicture){
   	moviePersonCardPicture.style.backgroundImage = 'url(\'' + urlPicture + '\')';
+  }else{
+    urlPicture = "http://fr.web.img4.acsta.net/r_215_290/commons/emptymedia/empty_photo.jpg";
+    moviePersonCardPicture.style.backgroundImage = 'url(\'' + urlPicture + '\')';
+    moviePersonCardPicture.style.opacity = 0.5;
   }
   moviePersonCard.appendChild( moviePersonCardPicture );
 
