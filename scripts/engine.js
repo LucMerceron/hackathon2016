@@ -40,7 +40,7 @@ function init() {
     objects.push( object );
   }
 
-  for ( var i = 0; i < launchItems.length; i += 2 ) {
+  for ( var i = 0; i < launchItems.length; i += 1 ) {
     var element = new MovieHTMLObject(launchItems[i].original_title, ENDPOINT_POSTER + launchItems[i].poster_path);
     element.setId( launchItems[i].id );
 
@@ -171,9 +171,6 @@ function animate() {
   requestAnimationFrame( animate );
 
   TWEEN.update();
-
-  // controls.update();
-
 }
 
 function render() {

@@ -173,7 +173,7 @@ function smoothMiddle(){
   TWEEN.removeAll();
   new TWEEN.Tween( cameraPosStw )
     .to( {x: 0, y: 0, z: INITIAL_CAMERA_Z}, 3000 )
-    .easing( TWEEN.Easing.Back.InOut )
+    .easing( TWEEN.Easing.Quintic.InOut )
     .onUpdate(() =>{      
       camera.position.x = cameraPosStw.x;
       camera.position.y = cameraPosStw.y;
