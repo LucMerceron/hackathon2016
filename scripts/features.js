@@ -92,9 +92,51 @@ function searchFilmography(actorId) {
         }),
     pWait
     ]).then((results) => {
-      console.log(results);
       StoreManager.setMovies(results[0]);
       StoreManager.setActors([]);
+      flaggounet = true;
+    })
+}
+
+function searchCast(movieId) {
+  goodTile = false;
+  flaggounet = false;
+
+  var cameraPosition = camera.position.clone();
+
+  TWEEN.removeAll();
+  new TWEEN.Tween( cameraPosition )
+    .to( {x: 0, y: 0, z: INITIAL_CAMERA_Z}, 5000 )
+    .easing( TWEEN.Easing.Exponential.Out )
+    .onUpdate(() =>{      
+      camera.position.x = cameraPosition.x;
+      camera.position.y = cameraPosition.y;
+      camera.position.z = cameraPosition.z;
+      render();
+    })
+    .start();
+
+  var pWait = new Promise(function(resolve, reject) { 
+    setTimeout(resolve, 4000);
+  });
+  STWcalled = setInterval(function(){ starWars(); }, 20);
+
+  Promise.all([
+    getMovieCast(movieId)
+        .then(actors => {
+            let urls = [];
+            for(let i = 0; i < actors.length; i++) {
+                if(actors[i].poster_path) {
+                    urls.push(ENDPOINT_POSTER + actors[i].profile_path);
+                }
+            }
+            return preloadImages(urls)
+                .then(() => {return Promise.resolve(actors)});
+        }),
+    pWait
+    ]).then((results) => {
+      StoreManager.setMovies([]);
+      StoreManager.setActors(results[0]);
       flaggounet = true;
     })
 }
@@ -210,7 +252,7 @@ function _getNextTile() {
     let movie = StoreManager.getMovies().shift();
     let movieElt = new MovieHTMLObject(movie.original_title, movie.poster_path ? ENDPOINT_POSTER + movie.poster_path : null);
     movieElt.setId( movie.id );
-    setListener( movieElt, evt=> { console.log( 'test') ; } );
+    setListener( movieElt, () => searchCast(movieElt.getId()));
     return movieElt.getHTMLElement();
 	} else if (StoreManager.getActors().length > 0) {
 		// Pop actor
