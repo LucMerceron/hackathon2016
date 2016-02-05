@@ -169,14 +169,19 @@ function starWars(){
   }
 
   if (goodTile) {
+    let tilesToRemove = []
     // If good tile then delete what is between them and the camera
     for (var i = 0; i < objects.length; i++) {
       let object = objects[i];
       let cameraPos = camera.position;
-      if ((object.element.className === 'fakeElement' && (cameraPos.z - object.position.z) < 3000)) {
-        removeTile(object);
+      if ((object.element.className === 'fakeRoot' && (cameraPos.z - object.position.z) < 3000)) {
+        tilesToRemove.push(object);
       }
      }
+
+    for (var i = 0; i < tilesToRemove.length; i++) {
+      removeTile(tilesToRemove[i]);
+    }
     clearInterval(STWcalled);
     smoothStop();
     attachOverviewListener();
