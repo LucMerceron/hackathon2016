@@ -99,15 +99,28 @@ var PersonHTMLObject = function ( name, urlPicture ){
   };
 
   this.setPopularity = function( popularity ){
-    moviePersonRatingNumber.innerHTML = popularity;
+      moviePersonRatingNumber.innerHTML = popularity;
   };
 
   this.setBirthday = function( birthdayDate, placeBirhtday ){
-    moviePersonBirthday.innerHTML = birthdayDate + '-' + placeBirhtday;
+    if ( birthdayDate && placeBirhtday ){
+      moviePersonBirthday.innerHTML = birthdayDate + '-' + placeBirhtday;
+    }else if ( birthdayDate ){
+      moviePersonBirthday.innerHTML = birthdayDate;
+    }else if (placeBirhtday){
+      moviePersonBirthday.innerHTML = placeBirhtday;
+    }else{
+      moviePersonBirthday.innerHTML = "n/ a";
+    }
+
   };
 
   this.setBiography = function( biography ){
-    moviePersonBiography.innerHTML = biography;
+    if ( biography ){
+      moviePersonBiography.innerHTML = biography;
+    }else{
+      moviePersonBiography.innerHTML = 'No information about his biography.';
+    }
   }
 
   this.setKnownFor = function( knownFor ){
@@ -148,6 +161,11 @@ var MovieHTMLObject = function ( name, urlPicture ){
   movieShowCardPicture.className = 'movie_show_card_picture';
   if (urlPicture)
     movieShowCardPicture.style.backgroundImage = 'url(\'' + urlPicture + '\')';
+  else{
+    urlPicture = "http://fr.web.img4.acsta.net/r_215_290/commons/emptymedia/empty_photo.jpg";
+    movieShowCardPicture.style.backgroundImage = 'url(\'' + urlPicture + '\')';
+    movieShowCardPicture.style.opacity = 0.5;
+  }
   movieShowCard.appendChild( movieShowCardPicture );
 
   var movieShowCardContainer = document.createElement( 'div' );
@@ -210,7 +228,7 @@ var MovieHTMLObject = function ( name, urlPicture ){
 
   var movieShowActeursBtn = document.createElement( 'div' );
   movieShowActeursBtn.className = 'movie_show_acteurs_btn';
-  movieShowActeursBtn.innerHTML = '>ACTEURS<';
+  movieShowActeursBtn.innerHTML = '>CAST<';
   movieShowActeurs.appendChild( movieShowActeursBtn );
 
   this.isMovie = function(){
@@ -234,7 +252,11 @@ var MovieHTMLObject = function ( name, urlPicture ){
   };
 
   this.setDate = function( date ){
-    movieShowDate.innerHTML = date;
+    if ( date ){
+      movieShowDate.innerHTML = date;
+    }else{
+      movieShowDate.innerHTML = 'n/ a';
+    }
   };
 
   this.setGenre = function( genre ){
@@ -251,7 +273,11 @@ var MovieHTMLObject = function ( name, urlPicture ){
   }
 
   this.setOverview = function( overview ){
-    movieShowOverview.innerHTML = overview;
+    if ( overview ){
+      movieShowOverview.innerHTML = overview;
+    }else{
+      movieShowOverview.innerHTML = 'No information about his overview.';
+    }
   };
 
   this.closeLoader = function(){
