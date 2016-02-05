@@ -150,6 +150,7 @@ body{
   background-size:cover;
   background-position:center;
   background-repeat: no-repeat;
+  cursor: pointer;
 }
 
 .movie_person_card_body_container{
@@ -198,7 +199,7 @@ body{
 }
 
 .movie_person_rating_number{
-  margin-top: -15px;
+  margin-top: -5px;
   font-size: 55px;
 }
 
@@ -257,13 +258,23 @@ body{
 }
 
 .movie_person_filmography_btn{
-  margin: 0;
+  margin: auto;
   padding: 0;
   text-shadow: 0 0 10px rgba(0,255,255,0.95);
+  width: 200px;
+  box-shadow: 0px 0px 12px rgba(127,255,255,0.75);
+  border: 1px solid rgba(127,255,255,0.75);
+}
+
+.movie_person_filmography_btn:active{
+  border: 2px solid rgba(127,255,255,0.75);
+  box-shadow: 0px 0px 15px rgba(127,255,255,0.75);
+  background-color: rgba(2,136,209,0.7);
 }
 
 .movie_person_filmography_btn:hover{
   text-shadow: 0 0 10px rgba(0,255,255,1);
+  box-shadow: 0px 0px 20px rgba(127,255,255,0.75);
   cursor: pointer;
 }
 
@@ -288,11 +299,12 @@ body{
 .movie_show_card_picture{
   width: 200px;
   height: 300px;
-  box-shadow: 0px 0px 12px rgba(0,255,255,0.75);
-  border: 1px solid rgba(127,255,255,0.75);
+  box-shadow: 0px 0px 12px rgba(180,255,150,0.75);
+  border: 1px solid rgba(180,255,150,0.75);
   background-size:cover;
   background-position:center;
   background-repeat: no-repeat;
+  cursor: pointer;
 }
 
 .movie_show_card_body_container{
@@ -310,8 +322,8 @@ body{
   overflow: hidden;
   background-color: rgba(180,255,150,0.28);
   padding: 15px;
-  box-shadow: 0px 0px 12px rgba(180,255,255,0.75);
-  border: 1px solid rgba(180,255,255,0.75);
+  box-shadow: 0px 0px 12px rgba(180,255,150,0.75);
+  border: 1px solid rgba(180,255,150,0.75);
   color: #fff;
 }
 
@@ -341,7 +353,7 @@ body{
 }
 
 .movie_show_rating_number{
-  margin-top: -15px;
+  margin-top: -5px;
   font-size: 55px;
 }
 
@@ -400,13 +412,23 @@ body{
 }
 
 .movie_show_acteurs_btn{
-  margin: 0;
+  margin: auto;
   padding: 0;
   text-shadow: 0 0 10px rgba(0,255,255,0.95);
+  width: 200px;
+  box-shadow: 0px 0px 12px rgba(180,255,150,0.75);
+  border: 1px solid rgba(180,255,150,0.75);
+}
+
+.movie_show_acteurs_btn:active{
+  border: 2px solid rgba(180,255,150,0.75);
+  box-shadow: 0px 0px 15px rgba(180,255,150,0.75);
+  background-color: rgba(27,94,32,0.7);
 }
 
 .movie_show_acteurs_btn:hover{
   text-shadow: 0 0 10px rgba(0,255,255,1);
+  box-shadow: 0px 0px 20px rgba(180,255,150,0.75);
   cursor: pointer;
 }
 
