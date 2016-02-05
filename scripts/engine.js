@@ -10,7 +10,7 @@ preloading();
 function preloading() {
   let images = [];
   for ( var i = 1; i < launchItems.length; i += 2 ) {
-    images.push(launchItems[i]);
+    images.push(ENDPOINT_POSTER + launchItems[i].poster_path);
   }
   preloadImages(images)
     .then(() => {
@@ -41,9 +41,8 @@ function init() {
   }
 
   for ( var i = 0; i < launchItems.length; i += 2 ) {
-    console.log(launchItems[i])
-    var element = new PersonHTMLObject(launchItems[i].original_title, ENDPOINT_POSTER + launchItems[i].poster_path);
-    element.setId( 3223 );
+    var element = new MovieHTMLObject(launchItems[i].original_title, ENDPOINT_POSTER + launchItems[i].poster_path);
+    element.setId( launchItems[i].id );
 
     var object = new THREE.CSS3DObject( element.getHTMLElement() );
     object.position.x = Math.random() * 8000 - 2000;
