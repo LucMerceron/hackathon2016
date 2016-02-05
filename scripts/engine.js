@@ -3,7 +3,7 @@
 var camera, scene, renderer;
 var objects = [];
 var targets = { grid: [] };
-var INITIAL_CAMERA_Z = 11000;
+var INITIAL_CAMERA_Z = 9000;
 
 preloading();
 
@@ -28,7 +28,7 @@ function init() {
   scene = new THREE.Scene();
 
   // Fake background object
-  for ( var i = 0; i < 60; i++ ) {
+  for ( var i = 0; i < 36; i++ ) {
     var fakeRoot = newFakeTile();
 
     var object = new THREE.CSS3DObject(fakeRoot);
