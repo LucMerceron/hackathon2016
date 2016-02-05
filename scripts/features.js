@@ -4,10 +4,12 @@
 
 var goodTile = false;
 var flaggounet = false;
+var flaggounetNoResult = false;
 
 function handleInputChange(element) {
   goodTile = false;
   flaggounet = false;
+  flaggounetNoResult = false;
 
   var cameraPosition = camera.position.clone();
 
@@ -52,12 +54,15 @@ function handleInputChange(element) {
       StoreManager.setMovies(results[0][0]);
       StoreManager.setActors(results[0][1]);
       flaggounet = true;
+      if(StoreManager.getMovies().length == 0 && StoreManager.getActors().length == 0)
+      	flaggounetNoResult = true;
     })
 }
 
 function searchFilmography(actorId) {
   goodTile = false;
   flaggounet = false;
+  flaggounetNoResult = false;
 
   var cameraPosition = camera.position.clone();
 
@@ -101,6 +106,7 @@ function searchFilmography(actorId) {
 function searchCast(movieId) {
   goodTile = false;
   flaggounet = false;
+  flaggounetNoResult = false;
 
   var cameraPosition = camera.position.clone();
 
@@ -158,7 +164,7 @@ function starWars(){
       minimumZ = objectPos.z;
 
 
-    if (flaggounet && tileInFront(object, cameraPos))
+    if ((flaggounet && tileInFront(object, cameraPos)) || flaggounetNoResult)
       goodTile = true;
 
     render();
