@@ -5,6 +5,7 @@
 var goodTile = false;
 var flaggounet = false;
 var flaggounetNoResult = false;
+var flagOverview = false;
 
 function handleInputChange(element) {
   goodTile = false;
@@ -339,24 +340,28 @@ function objectBehindCamera(object, camera){
 
 function moveCameraToObject(object) {
 
-  var cameraOrientation = camera.position.clone();
-  var targetOrientation = object.position.clone();
+  if (!flagOverview){
+    var cameraOrientation = camera.position.clone();
+    var targetOrientation = object.position.clone();
 
-  targetOrientation.set(targetOrientation.x + 120, targetOrientation.y - 170, targetOrientation.z + 1000);
+    targetOrientation.set(targetOrientation.x + 120, targetOrientation.y - 170, targetOrientation.z + 900);
 
-  TWEEN.removeAll();
-  new TWEEN.Tween( cameraOrientation )
-    .to( targetOrientation, 2000 )
-    .easing( TWEEN.Easing.Exponential.InOut )
-    .onUpdate( () => {
-        camera.position.x = cameraOrientation.x;
-        camera.position.y = cameraOrientation.y;
-        camera.position.z = cameraOrientation.z;
-        render();
-      }
-    )
-    .start();
+    TWEEN.removeAll();
+    new TWEEN.Tween( cameraOrientation )
+      .to( targetOrientation, 2000 )
+      .easing( TWEEN.Easing.Exponential.InOut )
+      .onUpdate( () => {
+          camera.position.x = cameraOrientation.x;
+          camera.position.y = cameraOrientation.y;
+          camera.position.z = cameraOrientation.z;
+          render();
+        }
+      )
+      .start();
 
+  }
+
+ 
 }
 
 
@@ -366,15 +371,13 @@ document.addEventListener( 'mousedown', mousedown, false );
 document.addEventListener( 'mousemove', mousemove, false );
 document.addEventListener( 'mouseup', mouseup, false );
 
-var flagOverview = false;
-
 function attachOverviewListener() {
-  var overviewMovie = document.getElementsByClassName('movie_show_overview');
+  var overviewMovie = document.getElementsByClassName('movie_show_card_body');
   for (var i = 0; i < overviewMovie.length; i++) {
     overviewMovie[i].onmouseenter = () => flagOverview = true;
     overviewMovie[i].onmouseleave = () => flagOverview = false;
   }
-  var overviewPerson = document.getElementsByClassName('movie_person_biography');
+  var overviewPerson = document.getElementsByClassName('movie_person_card_body');
   for (var i = 0; i < overviewPerson.length; i++) {
     overviewPerson[i].onmouseenter = () => flagOverview = true;
     overviewPerson[i].onmouseleave = () => flagOverview = false;
