@@ -179,6 +179,7 @@ function starWars(){
      }
     clearInterval(STWcalled);
     smoothStop();
+    attachOverviewListener();
   }
 }
 
@@ -348,12 +349,34 @@ function moveCameraToObject(object) {
 }
 
 
+// listeners
 document.addEventListener( 'wheel', mousewheel, false );
 document.addEventListener( 'mousedown', mousedown, false );
 document.addEventListener( 'mousemove', mousemove, false );
 document.addEventListener( 'mouseup', mouseup, false );
 
-// listeners
+var flagOverview = false;
+
+function attachOverviewListener() {
+  var overviewMovie = document.getElementsByClassName('movie_show_overview');
+  for (var i = 0; i < overviewMovie.length; i++) {
+    overviewMovie[i].onmouseenter = () => flagOverview = true;
+    overviewMovie[i].onmouseleave = () => flagOverview = false;
+  }
+  var overviewPerson = document.getElementsByClassName('movie_person_biography');
+  for (var i = 0; i < overviewPerson.length; i++) {
+    overviewPerson[i].onmouseenter = () => flagOverview = true;
+    overviewPerson[i].onmouseleave = () => flagOverview = false;
+  }
+}
+
+var readyStateCheckInterval = setInterval(function() {
+    if (document.readyState === "complete") {
+        clearInterval(readyStateCheckInterval);
+        attachOverviewListener();
+    }
+}, 100);
+
 
 var posInit;
 var camInit;
@@ -387,30 +410,33 @@ function mouseup ( event ) {
 }
 
 function mousewheel( e ) {
+  
   var cameraPosition = camera.position.clone();
   var cameraTarget = camera.position.clone();
 
-  if(e.deltaY > 0 && cameraPosition.z <= INITIAL_CAMERA_Z) {
-    cameraTarget.z += 500;
-    new TWEEN.Tween( cameraPosition )
-    .to( cameraTarget, 200 )
-    .easing( TWEEN.Easing.Linear.None )
-    .onUpdate( () => {
-        camera.position.z = cameraPosition.z;
-        render();
-      }
-    )
-    .start();
-  } else if (e.deltaY < 0) {
-   cameraTarget.z -= 500;
-    new TWEEN.Tween( cameraPosition )
-    .to( cameraTarget, 200 )
-    .easing( TWEEN.Easing.Linear.None )
-    .onUpdate( () => {
-        camera.position.z = cameraPosition.z;
-        render();
-      }
-    )
-    .start();
+  if (!flagOverview){
+    if(e.deltaY > 0 && cameraPosition.z <= INITIAL_CAMERA_Z) {
+      cameraTarget.z += 500;
+      new TWEEN.Tween( cameraPosition )
+      .to( cameraTarget, 200 )
+      .easing( TWEEN.Easing.Linear.None )
+      .onUpdate( () => {
+          camera.position.z = cameraPosition.z;
+          render();
+        }
+      )
+      .start();
+    } else if (e.deltaY < 0) {
+     cameraTarget.z -= 500;
+      new TWEEN.Tween( cameraPosition )
+      .to( cameraTarget, 200 )
+      .easing( TWEEN.Easing.Linear.None )
+      .onUpdate( () => {
+          camera.position.z = cameraPosition.z;
+          render();
+        }
+      )
+      .start();
+    }
   }
 }
