@@ -8,6 +8,7 @@ var flaggounetNoResult = false;
 var flagOverview = false;
 
 function handleInputChange(element) {
+  clearInterval(STWcalled);
   goodTile = false;
   flaggounet = false;
   flaggounetNoResult = false;
@@ -17,7 +18,7 @@ function handleInputChange(element) {
   TWEEN.removeAll();
   new TWEEN.Tween( cameraPosition )
     .to( {x: 0, y: 0, z: INITIAL_CAMERA_Z}, 5000 )
-    .easing( TWEEN.Easing.Exponential.Out )
+    .easing( TWEEN.Easing.Cubic.InOut )
     .onUpdate(() =>{
       camera.position.x = cameraPosition.x;
       camera.position.y = cameraPosition.y;
@@ -61,6 +62,7 @@ function handleInputChange(element) {
 }
 
 function searchFilmography(actorId) {
+  clearInterval(STWcalled);
   goodTile = false;
   flaggounet = false;
   flaggounetNoResult = false;
@@ -70,7 +72,7 @@ function searchFilmography(actorId) {
   TWEEN.removeAll();
   new TWEEN.Tween( cameraPosition )
     .to( {x: 0, y: 0, z: INITIAL_CAMERA_Z}, 5000 )
-    .easing( TWEEN.Easing.Exponential.Out )
+    .easing( TWEEN.Easing.Cubic.InOut )
     .onUpdate(() =>{      
       camera.position.x = cameraPosition.x;
       camera.position.y = cameraPosition.y;
@@ -105,6 +107,7 @@ function searchFilmography(actorId) {
 }
 
 function searchCast(movieId) {
+  clearInterval(STWcalled);
   goodTile = false;
   flaggounet = false;
   flaggounetNoResult = false;
@@ -114,7 +117,7 @@ function searchCast(movieId) {
   TWEEN.removeAll();
   new TWEEN.Tween( cameraPosition )
     .to( {x: 0, y: 0, z: INITIAL_CAMERA_Z}, 5000 )
-    .easing( TWEEN.Easing.Exponential.Out )
+    .easing( TWEEN.Easing.Cubic.InOut )
     .onUpdate(() =>{      
       camera.position.x = cameraPosition.x;
       camera.position.y = cameraPosition.y;
@@ -202,7 +205,7 @@ function smoothStop(){
   TWEEN.removeAll();
   new TWEEN.Tween( cameraPosition )
     .to( targetPosition, 3000 )
-    .easing( TWEEN.Easing.Exponential.Out )
+    .easing( TWEEN.Easing.Cubic.Out )
     .onUpdate( () => {
         camera.position.x = cameraPosition.x;
         camera.position.y = cameraPosition.y;
