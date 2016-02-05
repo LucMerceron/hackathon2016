@@ -101,6 +101,8 @@ function searchFilmography(actorId) {
       StoreManager.setMovies(results[0]);
       StoreManager.setActors([]);
       flaggounet = true;
+      if(results[0].length == 0)
+      	flaggounetNoResult = true;
     })
 }
 
@@ -145,6 +147,8 @@ function searchCast(movieId) {
       StoreManager.setMovies([]);
       StoreManager.setActors(results[0]);
       flaggounet = true;
+      if(results[0].length == 0)
+      	flaggounetNoResult = true;
     })
 }
 
