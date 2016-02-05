@@ -59,7 +59,7 @@ function init() {
           if ( el.isMovie() == true ){
             getMovieDetails( el.getId() ).then(
               details => {
-                el.setPopularity( details.popularity );
+                el.setPopularity( Math.round(details.popularity) );
                 el.setDate( details.release_date );
 
                 var genre = new Array();
