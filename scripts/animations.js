@@ -17,7 +17,7 @@ var PersonHTMLObject = function ( name, urlPicture ){
   if(urlPicture){
   	moviePersonCardPicture.style.backgroundImage = 'url(\'' + urlPicture + '\')';
   }else{
-    urlPicture = "http://fr.web.img4.acsta.net/r_215_290/commons/emptymedia/empty_photo.jpg";
+    urlPicture = "public/noImage.jpg";
     moviePersonCardPicture.style.backgroundImage = 'url(\'' + urlPicture + '\')';
     moviePersonCardPicture.style.opacity = 0.5;
   }
@@ -166,7 +166,7 @@ var MovieHTMLObject = function ( name, urlPicture ){
   if (urlPicture)
     movieShowCardPicture.style.backgroundImage = 'url(\'' + urlPicture + '\')';
   else{
-    urlPicture = "http://fr.web.img4.acsta.net/r_215_290/commons/emptymedia/empty_photo.jpg";
+    urlPicture = "public/noImage.jpg";
     movieShowCardPicture.style.backgroundImage = 'url(\'' + urlPicture + '\')';
     movieShowCardPicture.style.opacity = 0.5;
   }
